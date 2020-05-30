@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-manga-app",
-    "slug": "react-native-manga-app",
+    "name": "testProject",
+    "slug": "testProject",
     "platforms": [
       "ios",
       "android",
