@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const MangaDetailsScreen: React.FC = () => {
+const MangaDetailsScreen: React.FC = (props:any):JSX.Element => {
   return (
     <View style={styles.main}>
       <Text></Text>

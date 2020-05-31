@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const FavoriteMangasScreen: React.FC = () => {
+const FavoriteMangasScreen: React.FC = (props: any): JSX.Element => {
   return (
     <View style={styles.main}>
       <Text>FAVORITE MANGA BOOKS</Text>

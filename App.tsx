@@ -18,7 +18,10 @@ import * as Font from "expo-font";
 import { fontConfig } from "./constants/fontConfig";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { MangaBooksNavigator } from "./navigation/MangaAppNavigation";
+import {
+  RootNavigator,
+  MangaBooksNavigator,
+} from "./navigation/MangaAppNavigation";
 
 // import { Provider as StoreProvider } from "react-redux";
 
@@ -53,7 +56,7 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: "tomato",
-    accent: "yellow",
+    accent: "white",
   },
   fonts: configureFonts(fontConfig),
 };
@@ -77,8 +80,8 @@ export default function App() {
       <ReduxProvider store={store}>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <MangaBooksNavigator />
-            {/* <DrawerContent /> */}
+            <RootNavigator />
+            {/* <MangaStackNavigator /> */}
           </NavigationContainer>
         </PaperProvider>
       </ReduxProvider>

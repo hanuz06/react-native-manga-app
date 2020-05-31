@@ -1,7 +1,14 @@
-import { SET_MANGA_LIST, IBookState, BookActionsType } from "../../types";
+import {
+  SET_MANGA_LIST,
+  SET_BOOKS_BY_CATEGORY,
+  IBookState,
+  BookActionsType,
+} from "../../types";
 
 const initialState: IBookState = {
   allMangaBooks: [],
+  categories: [],
+  booksByCategory: [],
 };
 
 export default (state = initialState, action: BookActionsType) => {
@@ -10,6 +17,12 @@ export default (state = initialState, action: BookActionsType) => {
       return {
         ...state,
         allMangaBooks: action.books,
+        categories: action.categories,
+      };
+    case SET_BOOKS_BY_CATEGORY:
+      return {
+        ...state,
+        allMangaBooks: action.booksByCategory,
       };
     default:
       return state;

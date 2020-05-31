@@ -18,9 +18,11 @@ import {
   Paragraph,
 } from "react-native-paper";
 
-const BookItem = ({ title, last_chapter_date, image }: any) => {
-  const { width, height } = Dimensions.get("screen");
+import { IBookItems } from "../types";
 
+const { width, height } = Dimensions.get("screen");
+
+const BookItem = ({ title, last_chapter_date, image }: IBookItems) => {
   const LeftContent = (props: any) => (
     <Avatar.Image
       {...props}
@@ -55,10 +57,11 @@ export default BookItem;
 
 const styles = StyleSheet.create({
   main: {
-    width: Dimensions.get("screen").width / 2 - 1,
+    width: width / 2 - 1,
     paddingVertical: 10,
     margin: StyleSheet.hairlineWidth,
     backgroundColor: "rgba(255,182,193,0.3)",
+    maxWidth: 450,
   },
   content: {
     marginBottom: 5,

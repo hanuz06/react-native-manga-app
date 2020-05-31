@@ -14,34 +14,32 @@ import BookItem from "../../components/BookItem";
 
 import moment from "moment";
 
-const MangaListScreen: React.FC = (props: any): JSX.Element => {
+const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>();
   const [bookList, setBookList] = useState<IBook[]>([]);
 
-  const allMangaBooks = useSelector<IBookState, IBook[]>(
-    (state: any) => state.manga.allMangaBooks
+  const booksByCategory = useSelector<IBookState, IBook[]>(
+    (state: any) => state.manga.booksByCategory
   );
-  // console.log("props IN SCREENLIST ", props);
+  // console.log("props IN MANGA BY CATEGORIES ", props);
   const dispatch = useDispatch();
 
-  // interface ICategory {
-  //   category?: undefined | string;
-  // }
+  interface ICategory {
+    category?: undefined | string;
+  }
 
-  // let category: any = "";
-
-  // category = props.route.params.category;
-
-  // useEffect(() => {
-  //   props.navigation.setOptions({
-  //     headerTitle: category,
-  //   });
-  // }, []);
+  const category: string = props.route.params.category;
 
   useEffect(() => {
-    setBookList(allMangaBooks);
-  }, [allMangaBooks]);
+    props.navigation.setOptions({
+      headerTitle: category,
+    });
+  }, [category]);
+
+  useEffect(() => {
+    setBookList(booksByCategory);
+  }, [booksByCategory,category]);
 
   useEffect(() => {
     dispatch(booksActions.fetchMangaList());
@@ -51,7 +49,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(booksActions.fetchMangaList());
+      await dispatch(booksActions.fetchBooksByCategory());
     } catch (err) {
       setError(err.message);
     }
@@ -91,7 +89,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   );
 };
 
-export default MangaListScreen;
+export default MangaByCategoryScreen;
 
 // const styles = StyleSheet.create({
 //   main: {
