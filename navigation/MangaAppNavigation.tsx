@@ -18,6 +18,7 @@ import {
 import {
   createStackNavigator,
   TransitionPresets,
+  StackNavigationProp,
 } from "@react-navigation/stack";
 
 import {
@@ -40,6 +41,9 @@ import MangaByCategoryScreen from "../screens/manga/MangaByCategoryScreen";
 
 import Header from "../components/Header";
 import DrawerContent from "../components/DrawerContent";
+
+import { useDispatch } from "react-redux";
+import * as mangaActions from "../store/actions/mangaActions";
 
 // const theme = useTheme();
 
@@ -81,11 +85,12 @@ export const RootNavigator = () => {
       drawerContent={(
         props: DrawerContentComponentProps<DrawerContentOptions>
       ): JSX.Element => <DrawerContent {...props} />}
-      // drawerContentOptions={{
-      //   activeTintColor: 'blue',
-      // }}
+      drawerContentOptions={{
+        activeTintColor: "white",
+        activeBackgroundColor: "tomato",
+      }}
       drawerStyle={{
-        width: "50%",
+        width: 250,
       }}
     >
       <DrawerNavigation.Screen name="Home" component={MangaBooksNavigator} />
@@ -94,7 +99,13 @@ export const RootNavigator = () => {
 };
 
 // STACK NAVIGATION
-const MangaStackNavigation = createStackNavigator();
+type RootStackParamList = {
+  MangaList: undefined;
+  MangaDetails: { bookId: string };
+  MangaByCategory: { category: string };
+};
+
+const MangaStackNavigation = createStackNavigator<RootStackParamList>();
 
 export const MangaBooksNavigator: React.FC = (): JSX.Element => {
   const theme = useTheme();
@@ -104,10 +115,9 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       initialRouteName="MangaList"
       headerMode="screen"
       screenOptions={{
-        headerStyle: {
-          heigth: 80,
-        },
         header: ({ scene, previous, navigation }: any) => {
+          const dispatch = useDispatch();
+
           const { options } = scene.descriptor;
           const title =
             options.headerTitle !== undefined
@@ -155,11 +165,13 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
         name="MangaDetails"
         component={MangaDetailsScreen}
         options={{ headerTitle: "Manga book details" }}
+        initialParams={{ bookId:'' }}
       />
       <MangaStackNavigation.Screen
         name="MangaByCategory"
         component={MangaByCategoryScreen}
         options={{ headerTitle: "Manga by category" }}
+        initialParams={{ category:'' }}
       />
     </MangaStackNavigation.Navigator>
   );

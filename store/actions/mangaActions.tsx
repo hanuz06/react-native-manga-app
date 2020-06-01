@@ -1,8 +1,16 @@
-import { SET_MANGA_LIST, SET_BOOKS_BY_CATEGORY, IBook } from "../../types";
+import {
+  SET_MANGA_LIST,
+  SET_BOOKS_BY_CATEGORY,
+  SET_BOOK,
+  IBook,
+  IBookDetails,
+} from "../../types";
 import { BASE_URL } from "react-native-dotenv";
 import axios, { AxiosResponse } from "axios";
 import arraySort from "array-sort";
 import mangaReducer from "../reducers/mangaReducer";
+
+import Book from "../../models/Book";
 
 export const fetchMangaList = () => {
   return async (dispatch: any, getState: any) => {
@@ -71,27 +79,6 @@ export const fetchMangaList = () => {
     const setUniqueCategories = new Set(categoriesArray.flat());
     const uniqueCategoriesArray = Array.from(setUniqueCategories).sort();
 
-    // // Set categories that include id, category name, color
-    // const categoriesData = uniqueCategoriesArray.map((category, index) => {
-    //   const randomInt = Math.floor(Math.random() * 10);
-    //   return new Category(
-    //     (index + 1).toString(),
-    //     category,
-    //     categoryColors[randomInt]
-    //   );
-    // });
-
-    // const booksByCategories: any = {};
-    // uniqueCategoriesArray.map((category: string) => {
-    //   const booksArray: object[] = [];
-    //   loadedBooks.map((book: IBook) => {
-    //     if (book.categories.includes(category)) {
-    //       booksArray.push(book);
-    //     }
-    //   });
-    //   booksByCategories[category] = booksArray;
-    // });
-
     const sortedMangas = arraySort(mangasWithImages, ["last_chapter_date"], {
       reverse: true,
     });
@@ -108,13 +95,39 @@ export const setBooksByCategory = (category: string) => {
   return async (dispatch: any, getState: any) => {
     const allMangas: IBook[] = await getState().manga.allMangaBooks;
 
-    const booksByCategory: any = allMangas.filter((manga: IBook) =>
-      manga.categories.includes(category)
+    const booksByCategories: IBook[] = allMangas.filter((book: IBook) =>
+      book.categories.includes(category)
     );
 
     dispatch({
       type: SET_BOOKS_BY_CATEGORY,
-      booksByCategory: booksByCategory,
+      booksByCategory: booksByCategories,
+    });
+  };
+};
+
+export const fetchBookDetails = (bookId: string) => {
+  return async (dispatch: any, getState: any) => {
+    const fetchedBook = await axios.get<any, any>(
+      `${BASE_URL}/manga/${bookId}`
+    );  
+
+    const foundBook = new Book(
+      bookId,
+      fetchedBook.data.author,
+      fetchedBook.data.categories,
+      fetchedBook.data.chapters,
+      fetchedBook.data.description,
+      fetchedBook.data.image,
+      fetchedBook.data.last_chapter_date,
+      fetchedBook.data.released,
+      fetchedBook.data.title,
+      fetchedBook.data.url
+    );
+
+    dispatch({
+      type: SET_BOOK,
+      bookDetails: foundBook,
     });
   };
 };

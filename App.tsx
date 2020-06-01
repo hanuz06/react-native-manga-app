@@ -26,6 +26,7 @@ import {
 // import { Provider as StoreProvider } from "react-redux";
 
 import MangaListScreen from "./screens/manga/MangaListScreen";
+import MangaDetailsScreen from "./screens/manga/MangaDetailsScreen";
 
 // import { BASE_URL } from "react-native-dotenv";
 // import { DrawerContent } from "./navigation/MangaAppNavigation";
@@ -81,7 +82,7 @@ export default function App() {
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <RootNavigator />
-            {/* <MangaStackNavigator /> */}
+           {/* <MangaDetailsScreen/> */}
           </NavigationContainer>
         </PaperProvider>
       </ReduxProvider>

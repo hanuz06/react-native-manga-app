@@ -4,11 +4,11 @@ import React, {
   useState,
   useLayoutEffect,
 } from "react";
-import { StyleSheet, FlatList, ListRenderItemInfo } from "react-native";
+import { StyleSheet, FlatList, ListRenderItemInfo, View } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import * as booksActions from "../../store/actions/mangaActions";
+import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
 import BookItem from "../../components/BookItem";
 
@@ -22,36 +22,22 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   const allMangaBooks = useSelector<IBookState, IBook[]>(
     (state: any) => state.manga.allMangaBooks
   );
-  // console.log("props IN SCREENLIST ", props);
+
   const dispatch = useDispatch();
-
-  // interface ICategory {
-  //   category?: undefined | string;
-  // }
-
-  // let category: any = "";
-
-  // category = props.route.params.category;
-
-  // useEffect(() => {
-  //   props.navigation.setOptions({
-  //     headerTitle: category,
-  //   });
-  // }, []);
 
   useEffect(() => {
     setBookList(allMangaBooks);
   }, [allMangaBooks]);
 
   useEffect(() => {
-    dispatch(booksActions.fetchMangaList());
+    dispatch(mangaActions.fetchMangaList());
   }, []);
 
   const loadBooks = useCallback(async () => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(booksActions.fetchMangaList());
+      await dispatch(mangaActions.fetchMangaList());
     } catch (err) {
       setError(err.message);
     }
@@ -67,17 +53,27 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   //   };
   // }, [loadBooks]);
 
+  const fetchBookDetails = async (bookId: string) => {
+    await dispatch(mangaActions.fetchBookDetails(bookId));
+    props.navigation.navigate("MangaDetails", {
+      bookId,
+    });
+  };
+
   return (
     <FlatList
       onRefresh={loadBooks}
       refreshing={isRefreshing}
+      contentContainerStyle={{ backgroundColor: "#C0C0C0" }}
       data={bookList}
       numColumns={2}
       keyExtractor={(item: IBook): string => item._id}
       renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
         <BookItem
+          bookId={itemData.item._id}
           title={itemData.item.title}
           image={itemData.item.image}
+          fetchBookDetails={fetchBookDetails}
           last_chapter_date={
             itemData.item.last_chapter_date
               ? moment

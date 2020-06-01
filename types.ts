@@ -1,10 +1,13 @@
 export const SET_MANGA_LIST = "SET_MANGA_LIST";
 export const SET_BOOKS_BY_CATEGORY = "SET_BOOKS_BY_CATEGORY";
+export const SET_BOOK = "SET_BOOK";
 
 export interface IBookItems {
+  bookId: string;
   title: string;
   last_chapter_date: string;
   image: string;
+  fetchBookDetails: (bookId:string) => {};
 }
 
 export interface IBook {
@@ -18,10 +21,24 @@ export interface IBook {
   last_chapter_date?: number;
 }
 
+export interface IBookDetails {
+  id: string;
+  author: string;
+  categories: string[];
+  chapters: [];
+  description: string;
+  image: string;
+  last_chapter_date: number;
+  released: number;
+  title: string;
+  url: string;
+}
+
 export interface IBookState {
   allMangaBooks: IBook[];
   categories: string[];
   booksByCategory: IBook[];
+  bookDetails: IBookDetails;
 }
 
 interface ISetBooks {
@@ -35,4 +52,9 @@ interface ISetBooksByCategory {
   booksByCategory: IBook[];
 }
 
-export type BookActionsType = ISetBooks | ISetBooksByCategory;
+interface ISetBook {
+  type: typeof SET_BOOK;
+  bookDetails: IBookDetails;
+}
+
+export type BookActionsType = ISetBooks | ISetBooksByCategory | ISetBook;

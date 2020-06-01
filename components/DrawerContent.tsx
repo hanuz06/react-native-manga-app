@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { View, StyleSheet } from "react-native";
 import {
   DrawerItem,
@@ -14,6 +14,7 @@ import {
   Paragraph,
   Drawer,
   Divider,
+  ActivityIndicator,
   Text,
   TouchableRipple,
   Switch,
@@ -25,11 +26,29 @@ import { useSelector, useDispatch } from "react-redux";
 import * as mangaActions from "../store/actions/mangaActions";
 
 const DrawerContent = (props: any): JSX.Element => {
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const categories = useSelector<IBookState, string[]>(
     (state: any) => state.manga.categories
   );
-
+  // console.log("CATEGORIES IN DRAWER CONTENT ", categories);
   const dispatch = useDispatch();
+
+  // if (isLoading) {
+  //   return (
+  //     <View style={styles.centered}>
+  //       <ActivityIndicator size="large" color="rgb(0,0,0)" />
+  //     </View>
+  //   );
+  // }
+
+  // useEffect(() => {
+  //   isLoading && (
+  //     <View style={styles.centered}>
+  //       <ActivityIndicator size="large" color="rgb(0,0,0)" />
+  //     </View>
+  //   );
+  // }, [isLoading]);
 
   return (
     <DrawerContentScrollView {...props}>
@@ -38,26 +57,33 @@ const DrawerContent = (props: any): JSX.Element => {
         <Divider />
         <Drawer.Section title="Categories" style={styles.drawerSection}>
           {categories.map((category: string, index: number) => (
-            <DrawerItem
-              key={index}
-              icon={({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="book-open-page-variant"
-                  color={color}
-                  size={24}
-                />
-              )}
-              label={category}
-              onPress={() => {
-                dispatch(mangaActions.setBooksByCategory(category));
-                props.navigation.navigate("MangaByCategory", {
-                  category,
-                });
-                // console.log("ALL ROUTES ", props.navigation);
-              }}
-            />
+            <Fragment key={index}>
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="book-open-page-variant"
+                    color={color}
+                    size={24}
+                  />
+                )}
+                label={category}
+                onPress={async () => {
+                  // setIsLoading(true);
+                  // console.log("dispatch started...");
+                  await dispatch(mangaActions.setBooksByCategory(category));
+                  // console.log("dispatch finished...");
+                  // setIsLoading(false);
+                  props.navigation.navigate("MangaByCategory", {
+                    category,
+                  });
+                  // console.log("ALL ROUTES ", props.navigation);
+                }}
+              />
+              <Divider />
+            </Fragment>
           ))}
         </Drawer.Section>
+        <Divider />
       </View>
     </DrawerContentScrollView>
   );
@@ -103,5 +129,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 12,
     paddingHorizontal: 16,
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

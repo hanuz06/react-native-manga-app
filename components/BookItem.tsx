@@ -16,13 +16,20 @@ import {
   Subheading,
   Text,
   Paragraph,
+  TouchableRipple,
 } from "react-native-paper";
 
 import { IBookItems } from "../types";
 
 const { width, height } = Dimensions.get("screen");
 
-const BookItem = ({ title, last_chapter_date, image }: IBookItems) => {
+const BookItem = ({
+  bookId,
+  title,
+  last_chapter_date,
+  image,
+  fetchBookDetails,
+}: IBookItems) => {
   const LeftContent = (props: any) => (
     <Avatar.Image
       {...props}
@@ -34,22 +41,27 @@ const BookItem = ({ title, last_chapter_date, image }: IBookItems) => {
   );
 
   return (
-    <Card style={styles.main}>
-      <Card.Title title={title} subtitle="Card Subtitle " left={LeftContent} />
-      <Card.Content style={styles.content}>
-        <Subheading>Last chapter date:</Subheading>
-        <Paragraph>{last_chapter_date}</Paragraph>
-      </Card.Content>
-      <Card.Cover
-        source={{
-          uri: `https://cdn.mangaeden.com/mangasimg/${image}`,
-        }}
-      />
-      <Card.Actions>
+    <TouchableRipple
+      onPress={() => fetchBookDetails(bookId)}
+      rippleColor="rgba(0, 0, 0, .32)"
+    >
+      <Card style={styles.main}>
+        <Card.Title title={title} titleStyle={{ fontSize: 20 }} />
+        <Card.Cover
+          source={{
+            uri: `https://cdn.mangaeden.com/mangasimg/${image}`,
+          }}
+        />
+        <Card.Content>
+          <Subheading>Last chapter date:</Subheading>
+          <Text>{last_chapter_date}</Text>
+        </Card.Content>
+        {/* <Card.Actions>
         <Button>Cancel</Button>
         <Button>Ok</Button>
-      </Card.Actions>
-    </Card>
+      </Card.Actions> */}
+      </Card>
+    </TouchableRipple>
   );
 };
 
@@ -58,12 +70,12 @@ export default BookItem;
 const styles = StyleSheet.create({
   main: {
     width: width / 2 - 1,
-    paddingVertical: 10,
+    paddingBottom: 2,
     margin: StyleSheet.hairlineWidth,
-    backgroundColor: "rgba(255,182,193,0.3)",
+    backgroundColor: "rgba(255,182,193,1)",
     maxWidth: 450,
   },
   content: {
-    marginBottom: 5,
+    // marginBottom: 5,
   },
 });
