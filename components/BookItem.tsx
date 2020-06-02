@@ -20,6 +20,7 @@ import {
 } from "react-native-paper";
 
 import { IBookItems } from "../types";
+import { IMAGE_URL } from "react-native-dotenv";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -30,15 +31,15 @@ const BookItem = ({
   image,
   fetchBookDetails,
 }: IBookItems) => {
-  const LeftContent = (props: any) => (
-    <Avatar.Image
-      {...props}
-      size={28}
-      source={{
-        uri: `https://cdn.mangaeden.com/mangasimg/${image}`,
-      }}
-    />
-  );
+  // const LeftContent = (props: any) => (
+  //   <Avatar.Image
+  //     {...props}
+  //     size={28}
+  //     source={{
+  //       uri: `${IMAGE_URL}/${image}`,
+  //     }}
+  //   />
+  // );  
 
   return (
     <TouchableRipple
@@ -46,15 +47,18 @@ const BookItem = ({
       rippleColor="rgba(0, 0, 0, .32)"
     >
       <Card style={styles.main}>
-        <Card.Title title={title} titleStyle={{ fontSize: 20 }} />
+        <Card.Title
+          title={title}
+          titleStyle={{ fontSize: 20, color: "white" }}
+        />
         <Card.Cover
           source={{
-            uri: `https://cdn.mangaeden.com/mangasimg/${image}`,
+            uri: `${IMAGE_URL}/${image}`,
           }}
         />
         <Card.Content>
-          <Subheading>Last chapter date:</Subheading>
-          <Text>{last_chapter_date}</Text>
+          <Subheading style={{ color: "white" }}>Last chapter date:</Subheading>
+          <Text style={{ color: "white" }}>{last_chapter_date}</Text>
         </Card.Content>
         {/* <Card.Actions>
         <Button>Cancel</Button>
@@ -72,7 +76,8 @@ const styles = StyleSheet.create({
     width: width / 2 - 1,
     paddingBottom: 2,
     margin: StyleSheet.hairlineWidth,
-    backgroundColor: "rgba(255,182,193,1)",
+    // backgroundColor: "rgba(255,182,193,1)",
+    backgroundColor: "black",
     maxWidth: 450,
   },
   content: {

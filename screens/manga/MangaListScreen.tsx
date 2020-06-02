@@ -4,7 +4,14 @@ import React, {
   useState,
   useLayoutEffect,
 } from "react";
-import { StyleSheet, FlatList, ListRenderItemInfo, View } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  ListRenderItemInfo,
+  View,
+  Alert,
+} from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,6 +22,7 @@ import BookItem from "../../components/BookItem";
 import moment from "moment";
 
 const MangaListScreen: React.FC = (props: any): JSX.Element => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>();
   const [bookList, setBookList] = useState<IBook[]>([]);
@@ -30,28 +38,22 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   }, [allMangaBooks]);
 
   useEffect(() => {
-    dispatch(mangaActions.fetchMangaList());
+    loadBooks();
   }, []);
 
   const loadBooks = useCallback(async () => {
+    console.log("LOADBOOKS TRIGERRED....");
     setError(null);
     setIsRefreshing(true);
+    setIsLoading(true);
     try {
       await dispatch(mangaActions.fetchMangaList());
     } catch (err) {
       setError(err.message);
     }
     setIsRefreshing(false);
-  }, [dispatch, setError]);
-
-  // console.log("PROPS NAVIGATION ", props);
-  // useEffect(() => {
-  //   const unsubscribe = props.navigation.addListener("focus", loadBooks);
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [loadBooks]);
+    setIsLoading(false);
+  }, [dispatch, setIsLoading, setError]);
 
   const fetchBookDetails = async (bookId: string) => {
     await dispatch(mangaActions.fetchBookDetails(bookId));
@@ -59,6 +61,22 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       bookId,
     });
   };
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert("An Error Occurred!", error, [
+        { text: "Okay", onPress: () => setError(null) },
+      ]);
+    }
+  }, [error]);
+
+  if (isLoading) {
+    return (
+      <View style={styles.main}>
+        <ActivityIndicator size="large" color="tomato" />
+      </View>
+    );
+  }
 
   return (
     <FlatList
@@ -89,16 +107,16 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
 
 export default MangaListScreen;
 
-// const styles = StyleSheet.create({
-//   main: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   bottom: {
-//     position: "absolute",
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//   },
-// });
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bottom: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+});

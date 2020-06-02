@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import * as mangaActions from "../../store/actions/mangaActions";
 
-import { IBook, IBookState, IBookDetails } from "../../types";
+import { IBookState } from "../../types";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -27,8 +27,21 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
     (state: any) => state.manga.bookDetails
   );
 
-  const info = () => <BookInfo />;
-  const chapters = () => <BookChapters chapters={bookDetails.chapters}/>;
+  interface IBookDetails {
+    id: string;
+    author: string;
+    categories: string[];
+    chapters: [];
+    description: string;
+    image: string;
+    last_chapter_date: number;
+    released: number;
+    title: string;
+    url: string;
+  }
+
+  const info = () => <BookInfo {...bookDetails} />;
+  const chapters = () => <BookChapters chapters={bookDetails.chapters} />;
 
   const renderScene = SceneMap({
     bookInfo: info,
@@ -48,7 +61,7 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
         shadowColor: theme.colors.text,
       }}
       labelStyle={{ color: theme.colors.primary }}
-      pressColor={color(theme.colors.surface).darken(0.2)}
+      pressColmageor={color(theme.colors.surface).darken(0.2)}
     />
   );
 
@@ -65,10 +78,10 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
 
 export default MangaDetailsScreen;
 
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   main: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+// });

@@ -7,37 +7,44 @@ import {
   Title,
   Paragraph,
   Divider,
+  Surface,
   TouchableRipple,
 } from "react-native-paper";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const BookChapters = (props: any) => {
+import { IBookDetails } from "../types";
+
+type BookChapters = Pick<IBookDetails, "chapters">;
+
+const BookChapters = ({ chapters }: BookChapters) => {
   return (
-    <FlatList
-      data={props.chapters}
-      keyExtractor={(item: any): string => item[3]}
-      renderItem={(itemData: any): JSX.Element => (
-        <TouchableRipple
-          onPress={() => console.log("Pressed")}
-          rippleColor="rgba(0, 0, 0, .52)"
-        >
-          <Card style={styles.main}>
-            <View style={styles.row}>
-              <MaterialCommunityIcons
-                name="book-open-page-variant"
-                color="grey"
-                size={24}
-              />
-              <Card.Content style={{ width: 220 }}>
-                <Title>Chapter: {itemData.item[0]}</Title>
-                <Text>Title: {itemData.item[2]}</Text>
-              </Card.Content>
-            </View>
-          </Card>
-        </TouchableRipple>
-      )}
-    />
+    <Surface style={styles.container}>
+      <FlatList
+        data={chapters}
+        keyExtractor={(item: any): string => item[3]}
+        renderItem={(itemData: any): JSX.Element => (
+          <TouchableRipple
+            onPress={() => console.log("Pressed")}
+            rippleColor="rgba(0, 0, 0, .52)"
+          >
+            <Card style={styles.main}>
+              <View style={styles.row}>
+                <MaterialCommunityIcons
+                  name="book-open-page-variant"
+                  color="grey"
+                  size={24}
+                />
+                <Card.Content style={{ width: 220 }}>
+                  <Title>Chapter: {itemData.item[0]}</Title>
+                  <Text>Title: {itemData.item[2]}</Text>
+                </Card.Content>
+              </View>
+            </Card>
+          </TouchableRipple>
+        )}
+      />
+    </Surface>
   );
 };
 
@@ -57,5 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: 280,
+  },
+  container: {
+    flex: 1,
   },
 });

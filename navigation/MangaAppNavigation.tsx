@@ -33,6 +33,7 @@ import {
   Switch,
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import color from "color";
 
 import MangaListScreen from "../screens/manga/MangaListScreen";
 import MangaDetailsScreen from "../screens/manga/MangaDetailsScreen";
@@ -80,32 +81,52 @@ const openCloseConfig: any = {
 const DrawerNavigation = createDrawerNavigator();
 
 export const RootNavigator = () => {
+  const theme = useTheme();
+
   return (
     <DrawerNavigation.Navigator
       drawerContent={(
         props: DrawerContentComponentProps<DrawerContentOptions>
       ): JSX.Element => <DrawerContent {...props} />}
       drawerContentOptions={{
-        activeTintColor: "white",
-        activeBackgroundColor: "tomato",
+        activeTintColor: theme.colors.surface,
+        activeBackgroundColor: (theme.colors.primary),
+        labelStyle: {
+          fontWeight: "bold",
+          fontSize: 18,
+        },
       }}
       drawerStyle={{
         width: 250,
       }}
+      drawerType='back'
     >
-      <DrawerNavigation.Screen name="Home" component={MangaBooksNavigator} />
+      <DrawerNavigation.Screen
+        name="Home"
+        component={MangaBooksNavigator}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="home-outline"
+              color={color}
+              size={24}
+            />
+          ),
+          drawerLabel: "Home",
+        }}
+      />
     </DrawerNavigation.Navigator>
   );
 };
 
 // STACK NAVIGATION
-type RootStackParamList = {
+type MangaStackParamList = {
   MangaList: undefined;
   MangaDetails: { bookId: string };
   MangaByCategory: { category: string };
 };
 
-const MangaStackNavigation = createStackNavigator<RootStackParamList>();
+const MangaStackNavigation = createStackNavigator<MangaStackParamList>();
 
 export const MangaBooksNavigator: React.FC = (): JSX.Element => {
   const theme = useTheme();
@@ -116,7 +137,7 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       headerMode="screen"
       screenOptions={{
         header: ({ scene, previous, navigation }: any) => {
-          const dispatch = useDispatch();
+          // const dispatch = useDispatch();
 
           const { options } = scene.descriptor;
           const title =
@@ -165,13 +186,13 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
         name="MangaDetails"
         component={MangaDetailsScreen}
         options={{ headerTitle: "Manga book details" }}
-        initialParams={{ bookId:'' }}
+        initialParams={{ bookId: "" }}
       />
       <MangaStackNavigation.Screen
         name="MangaByCategory"
         component={MangaByCategoryScreen}
         options={{ headerTitle: "Manga by category" }}
-        initialParams={{ category:'' }}
+        initialParams={{ category: "" }}
       />
     </MangaStackNavigation.Navigator>
   );

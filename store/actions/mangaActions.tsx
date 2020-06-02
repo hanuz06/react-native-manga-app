@@ -8,7 +8,8 @@ import {
 import { BASE_URL } from "react-native-dotenv";
 import axios, { AxiosResponse } from "axios";
 import arraySort from "array-sort";
-import mangaReducer from "../reducers/mangaReducer";
+
+const Entities = require("html-entities").AllHtmlEntities;
 
 import Book from "../../models/Book";
 
@@ -108,16 +109,18 @@ export const setBooksByCategory = (category: string) => {
 
 export const fetchBookDetails = (bookId: string) => {
   return async (dispatch: any, getState: any) => {
+    const entities = new Entities();
+
     const fetchedBook = await axios.get<any, any>(
       `${BASE_URL}/manga/${bookId}`
-    );  
+    );
 
     const foundBook = new Book(
       bookId,
       fetchedBook.data.author,
       fetchedBook.data.categories,
       fetchedBook.data.chapters,
-      fetchedBook.data.description,
+      entities.decode(fetchedBook.data.description),
       fetchedBook.data.image,
       fetchedBook.data.last_chapter_date,
       fetchedBook.data.released,

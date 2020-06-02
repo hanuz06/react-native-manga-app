@@ -56,7 +56,8 @@ const theme = {
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: "tomato",
+    surface: '#FFFFF0',
+    primary: "#d32f2f",
     accent: "white",
   },
   fonts: configureFonts(fontConfig),

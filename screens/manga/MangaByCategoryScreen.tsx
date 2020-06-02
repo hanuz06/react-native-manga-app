@@ -31,7 +31,7 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
   const booksByCategory = useSelector<IBookState, IBook[]>(
     (state: any) => state.manga.booksByCategory
   );
-  // console.log("booksByCategory IN MANGA BY CATEGORIES ", booksByCategory);
+  
   const dispatch = useDispatch();
 
   const category: string = props.route.params.category;
@@ -52,14 +52,6 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
     setBookList(booksByCategory);
   }, [booksByCategory, category]);
 
-  // if (isLoading) {
-  //   return (
-  //     <View style={styles.centered}>
-  //       <ActivityIndicator size="large" />
-  //     </View>
-  //   );
-  // }
-
   // useEffect(() => {
   //   dispatch(booksActions.fetchMangaList());
   // }, []);
@@ -75,7 +67,7 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
   //   setIsRefreshing(false);
   // }, [dispatch, setError]);
 
-  // console.log("PROPS NAVIGATION ", props);
+  
   // useEffect(() => {
   //   const unsubscribe = props.navigation.addListener("focus", loadBooks);
 
@@ -90,6 +82,14 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
       bookId,
     });
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.main}>
+        <ActivityIndicator size="large" color="tomato" />
+      </View>
+    );
+  }
 
   return (
     <FlatList
