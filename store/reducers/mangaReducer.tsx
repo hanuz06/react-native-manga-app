@@ -5,6 +5,8 @@ import {
   IBookState,
   BookActionsType,
   IBookDetails,
+  SET_CHAPTER_CONTENT,
+  CLEAR_CHAPTER_CONTENT,
 } from "../../types";
 
 const initialState: IBookState = {
@@ -23,6 +25,7 @@ const initialState: IBookState = {
     title: "",
     url: "",
   },
+  chapterContent: [],
 };
 
 export default (state = initialState, action: BookActionsType) => {
@@ -42,6 +45,16 @@ export default (state = initialState, action: BookActionsType) => {
       return {
         ...state,
         bookDetails: action.bookDetails,
+      };
+    case SET_CHAPTER_CONTENT:
+      return {
+        ...state,
+        chapterContent: action.chapterContent,
+      };
+    case CLEAR_CHAPTER_CONTENT:
+      return {
+        ...state,
+        chapterContent: [],
       };
     default:
       return state;

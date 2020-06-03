@@ -19,6 +19,8 @@ import {
   createStackNavigator,
   TransitionPresets,
   StackNavigationProp,
+  CardStyleInterpolators,
+  HeaderStyleInterpolators,
 } from "@react-navigation/stack";
 
 import {
@@ -39,6 +41,7 @@ import MangaListScreen from "../screens/manga/MangaListScreen";
 import MangaDetailsScreen from "../screens/manga/MangaDetailsScreen";
 import FavoriteMangasScreen from "../screens/manga/FavoriteMangasScreen";
 import MangaByCategoryScreen from "../screens/manga/MangaByCategoryScreen";
+import ChapterContentScreen from "../screens/manga/ChapterContentScreen";
 
 import Header from "../components/Header";
 import DrawerContent from "../components/DrawerContent";
@@ -90,7 +93,7 @@ export const RootNavigator = () => {
       ): JSX.Element => <DrawerContent {...props} />}
       drawerContentOptions={{
         activeTintColor: theme.colors.surface,
-        activeBackgroundColor: (theme.colors.primary),
+        activeBackgroundColor: theme.colors.primary,
         labelStyle: {
           fontWeight: "bold",
           fontSize: 18,
@@ -99,7 +102,7 @@ export const RootNavigator = () => {
       drawerStyle={{
         width: 250,
       }}
-      drawerType='back'
+      drawerType="back"
     >
       <DrawerNavigation.Screen
         name="Home"
@@ -124,6 +127,7 @@ type MangaStackParamList = {
   MangaList: undefined;
   MangaDetails: { bookId: string };
   MangaByCategory: { category: string };
+  ChapterContent: { chapterId: string };
 };
 
 const MangaStackNavigation = createStackNavigator<MangaStackParamList>();
@@ -137,8 +141,6 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       headerMode="screen"
       screenOptions={{
         header: ({ scene, previous, navigation }: any) => {
-          // const dispatch = useDispatch();
-
           const { options } = scene.descriptor;
           const title =
             options.headerTitle !== undefined
@@ -175,6 +177,13 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
             </Appbar.Header>
           );
         },
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+        ...TransitionPresets.SlideFromRightIOS,
+        transitionSpec: {
+          open: openCloseConfig,
+          close: openCloseConfig,
+        },
       }}
     >
       <MangaStackNavigation.Screen
@@ -185,14 +194,26 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       <MangaStackNavigation.Screen
         name="MangaDetails"
         component={MangaDetailsScreen}
-        options={{ headerTitle: "Manga book details" }}
+        options={{
+          headerTitle: "Manga book details",
+          headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+        }}
         initialParams={{ bookId: "" }}
       />
       <MangaStackNavigation.Screen
         name="MangaByCategory"
         component={MangaByCategoryScreen}
-        options={{ headerTitle: "Manga by category" }}
+        options={{
+          headerTitle: "Manga by category",
+          headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+        }}
         initialParams={{ category: "" }}
+      />
+      <MangaStackNavigation.Screen
+        name="ChapterContent"
+        component={ChapterContentScreen}        
+        options={{ headerShown: false }}        
+        initialParams={{ chapterId: "" }}
       />
     </MangaStackNavigation.Navigator>
   );

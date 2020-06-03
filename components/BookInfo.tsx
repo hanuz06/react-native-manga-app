@@ -1,17 +1,17 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   ScrollView,
   SafeAreaView,
 } from "react-native";
 
-import { Surface, Title, Divider, useTheme } from "react-native-paper";
+import { Surface, Title, Divider, Text, useTheme } from "react-native-paper";
 import color from "color";
 
 import moment from "moment";
+import { upperCaseFirst } from "upper-case-first";
 
 import Constants from "expo-constants";
 
@@ -71,7 +71,7 @@ const BookInfo = ({
               <View style={styles.authorReleaseChapterContainer}>
                 <Title style={styles.authorReleaseChapterStyle}>Author:</Title>
                 <Text style={[styles.content, { color: contentColor }]}>
-                  {author}
+                  {upperCaseFirst(author.toLowerCase())}
                 </Text>
               </View>
               <Divider />
@@ -101,7 +101,9 @@ const BookInfo = ({
             </Text>
             <Title style={styles.title}>Last updated:</Title>
             <Text style={[styles.content, { color: contentColor }]}>
-              {moment(last_chapter_date).format("DD MMM YYYY")}
+              {last_chapter_date
+                ? moment.unix(last_chapter_date).format("DD MMM YYYY ")
+                : "Sorry no data"}
             </Text>
             <Title style={styles.title}>Categories:</Title>
             <Text style={[styles.content, { color: contentColor }]}>
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
     maxWidth: 450,
   },
   topRow: {
+    fontFamily: "dancingFont",
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   authorReleaseChapterStyle: {
-    fontWeight: "bold",
+    fontSize: 20,
     marginRight: 5,
   },
   container: {
@@ -161,10 +164,8 @@ const styles = StyleSheet.create({
   },
   title: {
     marginVertical: 5,
-    fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 22,
   },
-  
   content: {
     fontSize: 18,
     lineHeight: 26,

@@ -42,7 +42,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   }, []);
 
   const loadBooks = useCallback(async () => {
-    console.log("LOADBOOKS TRIGERRED....");
+    // console.log("LOADBOOKS TRIGERRED....");
     setError(null);
     setIsRefreshing(true);
     setIsLoading(true);
@@ -62,13 +62,11 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     });
   };
 
-  useEffect(() => {
-    if (error) {
-      Alert.alert("An Error Occurred!", error, [
-        { text: "Okay", onPress: () => setError(null) },
-      ]);
-    }
-  }, [error]);
+  if (error) {
+    Alert.alert("Oops, page not found!", "Please try again later", [
+      { text: "Okay", onPress: () => setError(null) },
+    ]);
+  }
 
   if (isLoading) {
     return (

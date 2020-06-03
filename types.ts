@@ -1,13 +1,15 @@
 export const SET_MANGA_LIST = "SET_MANGA_LIST";
 export const SET_BOOKS_BY_CATEGORY = "SET_BOOKS_BY_CATEGORY";
 export const SET_BOOK = "SET_BOOK";
+export const SET_CHAPTER_CONTENT = "SET_CHAPTER_CONTENT";
+export const CLEAR_CHAPTER_CONTENT = "CLEAR_CHAPTER_CONTENT";
 
 export interface IBookItems {
   bookId: string;
   title: string;
   last_chapter_date: string;
   image: string;
-  fetchBookDetails: (bookId:string) => {};
+  fetchBookDetails: (bookId: string) => {};
 }
 
 export interface IBook {
@@ -39,6 +41,7 @@ export interface IBookState {
   categories: string[];
   booksByCategory: IBook[];
   bookDetails: IBookDetails;
+  chapterContent: string[];
 }
 
 interface ISetBooks {
@@ -57,4 +60,18 @@ interface ISetBook {
   bookDetails: IBookDetails;
 }
 
-export type BookActionsType = ISetBooks | ISetBooksByCategory | ISetBook;
+interface ISetChapterContent {
+  type: typeof SET_CHAPTER_CONTENT;
+  chapterContent: string[];
+}
+
+interface IClearChapterContent {
+  type: typeof CLEAR_CHAPTER_CONTENT;
+}
+
+export type BookActionsType =
+  | ISetBooks
+  | ISetBooksByCategory
+  | ISetBook
+  | ISetChapterContent
+  | IClearChapterContent;

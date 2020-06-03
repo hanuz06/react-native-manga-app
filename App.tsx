@@ -41,11 +41,12 @@ const fetchFonts = () => {
   return Font.loadAsync({
     roboto: require("./assets/fonts/Roboto-Regular.ttf"),
     "roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
-    montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
-    "montserrat-bold": require("./assets/fonts/Montserrat-Bold.ttf"),
+    // montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
+    // "montserrat-bold": require("./assets/fonts/Montserrat-Bold.ttf"),
     // "montserrat-light": require("./assets/fonts/Montserrat-Light.ttf"),
     // "montserrat-medium": require("./assets/fonts/Montserrat-Medium.ttf"),
     // "montserrat-thin": require("./assets/fonts/Montserrat-Thin.ttf"),
+    // dancingFont: require("./assets/fonts/dancingFont.ttf"),
   });
 };
 
@@ -56,26 +57,26 @@ const theme = {
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    surface: '#FFFFF0',
+    surface: "#FFFFF0",
     primary: "#d32f2f",
     accent: "white",
   },
-  fonts: configureFonts(fontConfig),
+  // fonts: configureFonts(fontConfig),
 };
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState<boolean>(false);
 
-  if (!fontLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => {
-          setFontLoaded(true);
-        }}
-      />
-    );
-  }
+  // if (!fontLoaded) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={fetchFonts}
+  //       onFinish={() => {
+  //         setFontLoaded(true);
+  //       }}
+  //     />
+  //   );
+  // }
 
   return (
     <SafeAreaProvider>
@@ -83,7 +84,7 @@ export default function App() {
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <RootNavigator />
-           {/* <MangaDetailsScreen/> */}
+            {/* <MangaDetailsScreen/> */}
           </NavigationContainer>
         </PaperProvider>
       </ReduxProvider>

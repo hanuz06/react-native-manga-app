@@ -17,15 +17,17 @@ import { IBookDetails } from "../types";
 
 type BookChapters = Pick<IBookDetails, "chapters">;
 
-const BookChapters = ({ chapters }: BookChapters) => {
+const BookChapters = (
+  props:any 
+): JSX.Element => {
   return (
     <Surface style={styles.container}>
       <FlatList
-        data={chapters}
+        data={props.chapters.reverse()}
         keyExtractor={(item: any): string => item[3]}
         renderItem={(itemData: any): JSX.Element => (
           <TouchableRipple
-            onPress={() => console.log("Pressed")}
+            onPress={() => props.getChapterContent(itemData.item[3])}
             rippleColor="rgba(0, 0, 0, .52)"
           >
             <Card style={styles.main}>
@@ -33,9 +35,9 @@ const BookChapters = ({ chapters }: BookChapters) => {
                 <MaterialCommunityIcons
                   name="book-open-page-variant"
                   color="grey"
-                  size={24}
+                  size={28}
                 />
-                <Card.Content style={{ width: 220 }}>
+                <Card.Content style={{ width: "75%" }}>
                   <Title>Chapter: {itemData.item[0]}</Title>
                   <Text>Title: {itemData.item[2]}</Text>
                 </Card.Content>
@@ -58,12 +60,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderBottomColor: "silver",
     borderBottomWidth: 1,
+    maxWidth: 450,
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    width: 280,
+    width: "75%",
   },
   container: {
     flex: 1,

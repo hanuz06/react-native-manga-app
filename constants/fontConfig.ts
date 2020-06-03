@@ -1,20 +1,24 @@
 export const fontConfig = {
   default: {
     regular: {
-      fontFamily: "roboto",
-      // fontWeight: "400",
+      fontFamily: "montserrat",
+      fontWeight: "400",
     },
     medium: {
-      fontFamily: "roboto",
-      // fontWeight: "400",
+      fontFamily: "montserrat-medium",
+      fontWeight: "400",
     },
     light: {
-      fontFamily: "roboto",
-      // fontWeight: "400",
+      fontFamily: "montserrat-light",
+      fontWeight: "400",
     },
     thin: {
-      fontFamily: "roboto",
-      // fontWeight: "400",
+      fontFamily: "montserrat-thin",
+      fontWeight: "400",
+    },
+    bold: {
+      fontFamily: "montserrat-bold",
+      fontWeight: "bold",
     },
   },
 };

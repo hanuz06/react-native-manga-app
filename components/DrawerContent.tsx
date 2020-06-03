@@ -41,7 +41,6 @@ const DrawerContent = (props: any): JSX.Element => {
                   fontSize: 18,
                 }}
                 onPress={async () => {
-                  await dispatch(mangaActions.setBooksByCategory(category));
                   props.navigation.closeDrawer();
                   props.navigation.navigate("MangaByCategory", {
                     category,

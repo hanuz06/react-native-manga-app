@@ -9,9 +9,10 @@ import {
   FlatList,
   ListRenderItemInfo,
   View,
+  Alert,
   Text,
-  ActivityIndicator,
 } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -31,50 +32,35 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
   const booksByCategory = useSelector<IBookState, IBook[]>(
     (state: any) => state.manga.booksByCategory
   );
-  
+
   const dispatch = useDispatch();
 
   const category: string = props.route.params.category;
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   dispatch(mangaActions.setBooksByCategory(category));
-  //   // setIsLoading(false);
-  // }, [category]);
+  useEffect(() => {
+    setIsRefreshing(false);
+    setIsLoading(false);
+    setBookList(booksByCategory);
+  }, [booksByCategory]);
 
   useEffect(() => {
     props.navigation.setOptions({
       headerTitle: category,
     });
-  }, [category]);
+    loadBooks();
+  }, []);
 
-  useEffect(() => {
-    setBookList(booksByCategory);
-  }, [booksByCategory, category]);
+  const loadBooks = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    setIsLoading(true);
 
-  // useEffect(() => {
-  //   dispatch(booksActions.fetchMangaList());
-  // }, []);
-
-  // const loadBooks = useCallback(async () => {
-  //   setError(null);
-  //   setIsRefreshing(true);
-  //   try {
-  //     await dispatch(booksActions.fetchBooksByCategory());
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  //   setIsRefreshing(false);
-  // }, [dispatch, setError]);
-
-  
-  // useEffect(() => {
-  //   const unsubscribe = props.navigation.addListener("focus", loadBooks);
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [loadBooks]);
+    try {
+      await dispatch(mangaActions.setBooksByCategory(category));
+    } catch (err) {
+      setError(err.message);
+    }
+  }, [dispatch, setIsLoading, setError]);
 
   const fetchBookDetails = async (bookId: string) => {
     await dispatch(mangaActions.fetchBookDetails(bookId));
@@ -91,10 +77,16 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
     );
   }
 
+  if (error) {
+    Alert.alert("Oops, page not found!", "Please try again later", [
+      { text: "Okay", onPress: () => setError(null) },
+    ]);
+  }
+
   return (
     <FlatList
-      // onRefresh={loadBooks}
-      // refreshing={isRefreshing}
+      onRefresh={loadBooks}
+      refreshing={isRefreshing}
       data={bookList}
       numColumns={2}
       keyExtractor={(item: IBook): string => item._id}

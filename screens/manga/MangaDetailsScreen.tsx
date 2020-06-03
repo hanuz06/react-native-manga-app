@@ -27,6 +27,12 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
     (state: any) => state.manga.bookDetails
   );
 
+  const getChapterContent = (chapterId: string) => {
+    props.navigation.navigate("ChapterContent", {
+      chapterId,
+    });
+  };
+
   interface IBookDetails {
     id: string;
     author: string;
@@ -41,7 +47,7 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
   }
 
   const info = () => <BookInfo {...bookDetails} />;
-  const chapters = () => <BookChapters chapters={bookDetails.chapters} />;
+  const chapters = () => <BookChapters chapters={bookDetails.chapters} getChapterContent={getChapterContent}/>;
 
   const renderScene = SceneMap({
     bookInfo: info,

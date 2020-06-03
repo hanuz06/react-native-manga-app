@@ -4,6 +4,8 @@ import {
   SET_BOOK,
   IBook,
   IBookDetails,
+  SET_CHAPTER_CONTENT,
+  CLEAR_CHAPTER_CONTENT,
 } from "../../types";
 import { BASE_URL } from "react-native-dotenv";
 import axios, { AxiosResponse } from "axios";
@@ -54,7 +56,6 @@ export const fetchMangaList = () => {
         );
       },
       (err) => {
-        console.log("Error in axios ", err.message);
         throw err;
       }
     );
@@ -62,10 +63,6 @@ export const fetchMangaList = () => {
     const allMangaBooks = await newAxios.get<any, IBook[]>(
       `${BASE_URL}/list/0`
     );
-
-    if (allMangaBooks.length === 0) {
-      throw new Error("Oops, no books found. Please try later.");
-    }
 
     const mangasWithImages = allMangaBooks.filter(
       (manga) => manga.image !== null && manga.last_chapter_date
@@ -131,6 +128,34 @@ export const fetchBookDetails = (bookId: string) => {
     dispatch({
       type: SET_BOOK,
       bookDetails: foundBook,
+    });
+  };
+};
+
+export const fetchChapterContent = (chapterId: string) => {
+  return async (dispatch: any, getState: any) => {
+    const getChapter = await axios.get<any, any>(
+      `${BASE_URL}/chapter/${chapterId}`
+    );
+
+    const chapterImages: string[] = [];
+   
+    if (getChapter.data.images.length === 0) {
+      throw new Error("Sorry, no chapter content is available");
+    }
+    // console.log("CHAPTER IMAGES IN ACTIONS ", getChapter.data.images.reverse());
+    dispatch({
+      type: SET_CHAPTER_CONTENT,
+      chapterContent: getChapter.data.images.reverse(),
+    });
+  };
+};
+
+export const clearChapterContent = () => {
+  return async (dispatch: any, getState: any) => {
+    
+    dispatch({
+      type: CLEAR_CHAPTER_CONTENT      
     });
   };
 };
