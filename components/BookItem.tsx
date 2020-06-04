@@ -4,6 +4,7 @@ import {
   FlatList,
   View,
   ListRenderItemInfo,
+  TouchableOpacity,
   Dimensions,
 } from "react-native";
 import {
@@ -39,12 +40,12 @@ const BookItem = ({
   //       uri: `${IMAGE_URL}/${image}`,
   //     }}
   //   />
-  // );  
+  // );
 
   return (
-    <TouchableRipple
+    <TouchableOpacity
       onPress={() => fetchBookDetails(bookId)}
-      rippleColor="rgba(0, 0, 0, .32)"
+      activeOpacity={0.6}
     >
       <Card style={styles.main}>
         <Card.Title
@@ -60,12 +61,8 @@ const BookItem = ({
           <Subheading style={{ color: "white" }}>Last chapter date:</Subheading>
           <Text style={{ color: "white" }}>{last_chapter_date}</Text>
         </Card.Content>
-        {/* <Card.Actions>
-        <Button>Cancel</Button>
-        <Button>Ok</Button>
-      </Card.Actions> */}
       </Card>
-    </TouchableRipple>
+    </TouchableOpacity>
   );
 };
 

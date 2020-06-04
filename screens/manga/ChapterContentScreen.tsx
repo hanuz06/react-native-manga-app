@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   FlatList,
   Image,
   Alert,
   ListRenderItemInfo,
-  ActivityIndicator,
+  Dimensions,
 } from "react-native";
 
-import { useTheme } from "react-native-paper";
+import { useTheme, ActivityIndicator } from "react-native-paper";
+
+import { ReactNativeZoomableView } from "@dudigital/react-native-zoomable-view";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -20,6 +21,8 @@ import * as mangaActions from "../../store/actions/mangaActions";
 import { IBookState } from "../../types";
 
 import { IMAGE_URL } from "react-native-dotenv";
+
+const { width } = Dimensions.get("window");
 
 const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -36,10 +39,15 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setIsRefreshing(false);
+    setIsLoading(false);
+    setChapterList(chapterContent);
+  }, [chapterContent]);
+
+  useEffect(() => {
     loadChapter();
   }, [chapterId]);
-
-  // console.log("CHAPTER CONTENT ", chapterContent);
+ 
   const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
 
   const loadChapter = useCallback(async () => {
@@ -48,7 +56,7 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
     setIsLoading(true);
 
     try {
-      dispatch(mangaActions.fetchChapterContent(chapterId));
+      await dispatch(mangaActions.fetchChapterContent(chapterId));
     } catch (err) {
       setError(err.message);
     }
@@ -68,44 +76,38 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
     ]);
   }
 
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener("transitionStart", () => {
-      dispatch(mangaActions.clearChapterContent());
-    });
-
-    return unsubscribe;
-  }, [props.navigation]);
-
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <FlatList
         onRefresh={loadChapter}
         refreshing={isRefreshing}
         data={chapterList}
-        // numColumns={2}
         keyExtractor={(item: any) => item[0].toString()}
-        renderItem={(itemData: ListRenderItemInfo<string>): JSX.Element => (
-          <View style={styles.imageContainer}>
-            <Image
-              source={{ uri: `${IMAGE_URL}/${itemData.item[1]}` }}
-              style={[
-                styles.image,
-                {
-                  borderColor: imageBorderColor,
-                },
-              ]}
-            />
-          </View>
-        )}
+        renderItem={(itemData: ListRenderItemInfo<string>): JSX.Element => {
+          return (
+            <View style={styles.imageContainer}>
+              <ReactNativeZoomableView
+                maxZoom={2}
+                minZoom={1}
+                zoomStep={0.5}
+                initialZoom={1}
+              >
+                <Image
+                  source={{ uri: `${IMAGE_URL}/${itemData.item[1]}` }}
+                  style={[
+                    styles.image,
+                    {
+                      borderColor: imageBorderColor,
+                    },
+                  ]}
+                />
+              </ReactNativeZoomableView>
+            </View>
+          );
+        }}
       />
     </View>
   );
-
-  // return (
-  //   <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //     <Text>CHAPTER ID: {chapterId}</Text>
-  //   </View>
-  // );
 };
 
 export default ChapterContentScreen;
@@ -118,13 +120,16 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
+    maxWidth: 450,
     justifyContent: "center",
     alignItems: "center",
     margin: 3,
   },
+
   image: {
     borderWidth: StyleSheet.hairlineWidth,
-    width: "100%",
-    height: 300,
+    width: width,
+    height: 740,
+    resizeMode: "contain",
   },
 });

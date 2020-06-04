@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testProject",
-    "slug": "testProject",
+    "name": "manga",
+    "slug": "manga",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Platform,
   SafeAreaView,
   View,
   Easing,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import {
   DrawerItem,
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerContentComponentProps,
-  DrawerComponentProps,
+  DrawerContentComponentProps,  
   DrawerNavigationProp,
   DrawerContentOptions,
 } from "@react-navigation/drawer";
@@ -134,6 +134,7 @@ const MangaStackNavigation = createStackNavigator<MangaStackParamList>();
 
 export const MangaBooksNavigator: React.FC = (): JSX.Element => {
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   return (
     <MangaStackNavigation.Navigator
@@ -141,14 +142,21 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       headerMode="screen"
       screenOptions={{
         header: ({ scene, previous, navigation }: any) => {
+          const [isOn, setIsOn] = useState(false);
           const { options } = scene.descriptor;
-          const title =
-            options.headerTitle !== undefined
-              ? options.headerTitle
-              : options.title !== undefined
-              ? options.title
-              : scene.route.name;
-
+          const title = options.title;
+          // const title =
+          // options.headerTitle !== undefined
+          //   ? options.headerTitle
+          //   : options.title !== undefined
+          //   ? options.title
+          //   : scene.route.name;
+          
+          const switchToggle = () => {
+            setIsOn(!isOn);
+            dispatch(mangaActions.reverseChapters());            
+          };
+          
           return (
             <Appbar.Header
               theme={{ colors: { primary: theme.colors.surface } }}
@@ -170,10 +178,17 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
                 </TouchableOpacity>
               )}
               <Appbar.Content
-                title={title}
+                title={options.headerTitle}
                 color={theme.colors.accent}
                 titleStyle={{ fontWeight: "bold" }}
               />
+              {title === "chapters" && (
+                <Switch
+                  color="#98FB98"
+                  value={isOn}
+                  onValueChange={switchToggle}
+                />
+              )}
             </Appbar.Header>
           );
         },
@@ -196,7 +211,7 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
         component={MangaDetailsScreen}
         options={{
           headerTitle: "Manga book details",
-          headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+          headerStyleInterpolator: HeaderStyleInterpolators.forFade,          
         }}
         initialParams={{ bookId: "" }}
       />
@@ -211,8 +226,8 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       />
       <MangaStackNavigation.Screen
         name="ChapterContent"
-        component={ChapterContentScreen}        
-        options={{ headerShown: false }}        
+        component={ChapterContentScreen}
+        options={{ headerShown: false }}
         initialParams={{ chapterId: "" }}
       />
     </MangaStackNavigation.Navigator>

@@ -1,5 +1,11 @@
-import React from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React, { useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import {
   Avatar,
   Button,
@@ -10,6 +16,7 @@ import {
   Surface,
   TouchableRipple,
 } from "react-native-paper";
+import { useIsFocused } from "@react-navigation/native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -17,24 +24,37 @@ import { IBookDetails } from "../types";
 
 type BookChapters = Pick<IBookDetails, "chapters">;
 
-const BookChapters = (
-  props:any 
-): JSX.Element => {
+const BookChapters = (props: any): JSX.Element => {
+  const isFocused = useIsFocused();
+
+  // useEffect(() => {
+  //   props.navigation.setOptions({
+  //     title: "chapters",
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   isFocused &&
+  //     props.navigation.setOptions({
+  //       title: "chapters",
+  //     });
+  // }, [isFocused]);
+
   return (
     <Surface style={styles.container}>
       <FlatList
-        data={props.chapters.reverse()}
+        data={props.chapters}
         keyExtractor={(item: any): string => item[3]}
         renderItem={(itemData: any): JSX.Element => (
-          <TouchableRipple
+          <TouchableOpacity
             onPress={() => props.getChapterContent(itemData.item[3])}
-            rippleColor="rgba(0, 0, 0, .52)"
+            activeOpacity={0.5}
           >
             <Card style={styles.main}>
               <View style={styles.row}>
                 <MaterialCommunityIcons
                   name="book-open-page-variant"
-                  color="grey"
+                  color="black"
                   size={28}
                 />
                 <Card.Content style={{ width: "75%" }}>
@@ -43,7 +63,7 @@ const BookChapters = (
                 </Card.Content>
               </View>
             </Card>
-          </TouchableRipple>
+          </TouchableOpacity>
         )}
       />
     </Surface>

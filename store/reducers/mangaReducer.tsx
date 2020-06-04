@@ -7,6 +7,7 @@ import {
   IBookDetails,
   SET_CHAPTER_CONTENT,
   CLEAR_CHAPTER_CONTENT,
+  REVERSE_CHAPTERS,
 } from "../../types";
 
 const initialState: IBookState = {
@@ -41,6 +42,7 @@ export default (state = initialState, action: BookActionsType) => {
         ...state,
         booksByCategory: action.booksByCategory,
       };
+    case REVERSE_CHAPTERS:
     case SET_BOOK:
       return {
         ...state,

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { useTheme } from "react-native-paper";
+import { useTheme, Switch } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import BookInfo from "../../components/BookInfo";
 import BookChapters from "../../components/BookChapters";
@@ -10,13 +10,13 @@ import { useSelector, useDispatch } from "react-redux";
 
 import * as mangaActions from "../../store/actions/mangaActions";
 
-import { IBookState } from "../../types";
+import { IBookState, IBookDetails, IBook } from "../../types";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
+  const [index, setIndex] = useState<number>(0);
+  const [routes] = useState<{ key: string; title: string }[]>([
     { key: "bookInfo", title: "Manga Details" },
     { key: "bookChapters", title: "Chapters" },
   ]);
@@ -33,21 +33,26 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
     });
   };
 
-  interface IBookDetails {
-    id: string;
-    author: string;
-    categories: string[];
-    chapters: [];
-    description: string;
-    image: string;
-    last_chapter_date: number;
-    released: number;
-    title: string;
-    url: string;
-  }
+  useEffect(() => {
+    if (index === 1) {
+      props.navigation.setOptions({
+        title: "chapters",
+      });
+    } else {
+      props.navigation.setOptions({
+        title: null,
+      });
+    }
+  }, [index]);
 
   const info = () => <BookInfo {...bookDetails} />;
-  const chapters = () => <BookChapters chapters={bookDetails.chapters} getChapterContent={getChapterContent}/>;
+  const chapters = () => (
+    <BookChapters
+      chapters={bookDetails.chapters}
+      getChapterContent={getChapterContent}
+      navigation={props.navigation}
+    />
+  );
 
   const renderScene = SceneMap({
     bookInfo: info,
@@ -65,6 +70,7 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
       style={{
         backgroundColor: theme.colors.surface,
         shadowColor: theme.colors.text,
+        elevation: 6,
       }}
       labelStyle={{ color: theme.colors.primary }}
       pressColmageor={color(theme.colors.surface).darken(0.2)}

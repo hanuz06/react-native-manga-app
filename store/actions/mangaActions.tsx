@@ -6,12 +6,14 @@ import {
   IBookDetails,
   SET_CHAPTER_CONTENT,
   CLEAR_CHAPTER_CONTENT,
+  REVERSE_CHAPTERS,
 } from "../../types";
 import { BASE_URL } from "react-native-dotenv";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import arraySort from "array-sort";
 
 const Entities = require("html-entities").AllHtmlEntities;
+const capitalize = require("capitalize");
 
 import Book from "../../models/Book";
 
@@ -114,9 +116,9 @@ export const fetchBookDetails = (bookId: string) => {
 
     const foundBook = new Book(
       bookId,
-      fetchedBook.data.author,
+      capitalize.words(fetchedBook.data.author),
       fetchedBook.data.categories,
-      fetchedBook.data.chapters,
+      fetchedBook.data.chapters.reverse(),
       entities.decode(fetchedBook.data.description),
       fetchedBook.data.image,
       fetchedBook.data.last_chapter_date,
@@ -136,14 +138,12 @@ export const fetchChapterContent = (chapterId: string) => {
   return async (dispatch: any, getState: any) => {
     const getChapter = await axios.get<any, any>(
       `${BASE_URL}/chapter/${chapterId}`
-    );
+    );    
 
-    const chapterImages: string[] = [];
-   
     if (getChapter.data.images.length === 0) {
       throw new Error("Sorry, no chapter content is available");
     }
-    // console.log("CHAPTER IMAGES IN ACTIONS ", getChapter.data.images.reverse());
+   
     dispatch({
       type: SET_CHAPTER_CONTENT,
       chapterContent: getChapter.data.images.reverse(),
@@ -153,9 +153,24 @@ export const fetchChapterContent = (chapterId: string) => {
 
 export const clearChapterContent = () => {
   return async (dispatch: any, getState: any) => {
+    dispatch({
+      type: CLEAR_CHAPTER_CONTENT,
+    });
+  };
+};
+
+export const reverseChapters = () => {
+  return async (dispatch: any, getState: any) => {
+    const book = await getState().manga.bookDetails;
+
+    const newBook = {
+      ...book,
+      chapters: book.chapters.reverse(),
+    };
     
     dispatch({
-      type: CLEAR_CHAPTER_CONTENT      
+      type: REVERSE_CHAPTERS,
+      bookDetails: newBook,
     });
   };
 };

@@ -11,7 +11,6 @@ import { Surface, Title, Divider, Text, useTheme } from "react-native-paper";
 import color from "color";
 
 import moment from "moment";
-import { upperCaseFirst } from "upper-case-first";
 
 import Constants from "expo-constants";
 
@@ -71,7 +70,7 @@ const BookInfo = ({
               <View style={styles.authorReleaseChapterContainer}>
                 <Title style={styles.authorReleaseChapterStyle}>Author:</Title>
                 <Text style={[styles.content, { color: contentColor }]}>
-                  {upperCaseFirst(author.toLowerCase())}
+                  {author}
                 </Text>
               </View>
               <Divider />

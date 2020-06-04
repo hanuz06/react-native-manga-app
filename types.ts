@@ -3,6 +3,7 @@ export const SET_BOOKS_BY_CATEGORY = "SET_BOOKS_BY_CATEGORY";
 export const SET_BOOK = "SET_BOOK";
 export const SET_CHAPTER_CONTENT = "SET_CHAPTER_CONTENT";
 export const CLEAR_CHAPTER_CONTENT = "CLEAR_CHAPTER_CONTENT";
+export const REVERSE_CHAPTERS = "REVERSE_CHAPTERS";
 
 export interface IBookItems {
   bookId: string;
@@ -69,9 +70,15 @@ interface IClearChapterContent {
   type: typeof CLEAR_CHAPTER_CONTENT;
 }
 
+interface IReverseChapters {
+  type: typeof REVERSE_CHAPTERS;
+  bookDetails: IBookDetails;
+}
+
 export type BookActionsType =
   | ISetBooks
   | ISetBooksByCategory
   | ISetBook
   | ISetChapterContent
-  | IClearChapterContent;
+  | IClearChapterContent
+  | IReverseChapters;
