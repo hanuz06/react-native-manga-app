@@ -12,7 +12,7 @@ import {
   Alert,
   Text,
 } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator, useTheme } from "react-native-paper";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -32,10 +32,27 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
   const booksByCategory = useSelector<IBookState, IBook[]>(
     (state: any) => state.manga.booksByCategory
   );
+  const searchWord: string = useSelector<IBookState, string>(
+    (state: any) => state.manga.searchWord
+  );
 
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const category: string = props.route.params.category;
+
+  useEffect(() => {
+    const filtered = booksByCategory.filter((book) =>
+      book.title.toLowerCase().includes(searchWord.toLowerCase())
+    );
+    filtered.length !== 0
+      ? setBookList(filtered)
+      : setBookList(booksByCategory);
+
+    !searchWord && filtered.length === 0 && setError(null);
+
+    searchWord && filtered.length === 0 && setError("Oops, no books found");
+  }, [searchWord]);
 
   useEffect(() => {
     setIsRefreshing(false);
@@ -72,7 +89,7 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
   if (isLoading) {
     return (
       <View style={styles.main}>
-        <ActivityIndicator size="large" color="tomato" />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -89,10 +106,10 @@ const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {
       refreshing={isRefreshing}
       data={bookList}
       numColumns={2}
-      keyExtractor={(item: IBook): string => item._id}
+      keyExtractor={(item: IBook): string => item.id}
       renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
         <BookItem
-          bookId={itemData.item._id}
+          bookId={itemData.item.id}
           title={itemData.item.title}
           image={itemData.item.image}
           fetchBookDetails={fetchBookDetails}

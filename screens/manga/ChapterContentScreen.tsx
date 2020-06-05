@@ -31,7 +31,7 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
   const [chapterList, setChapterList] = useState<string[]>([]);
 
   const theme = useTheme();
-
+  // console.log("PROPS IN CHAPTER CONTENT SCREEN ", props);
   const chapterContent = useSelector<IBookState, string[]>(
     (state: any) => state.manga.chapterContent
   );
@@ -47,7 +47,7 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
   useEffect(() => {
     loadChapter();
   }, [chapterId]);
- 
+
   const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
 
   const loadChapter = useCallback(async () => {
@@ -65,7 +65,7 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
   if (isLoading) {
     return (
       <View style={styles.main}>
-        <ActivityIndicator size="large" color="tomato" />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -75,7 +75,7 @@ const ChapterContentScreen: React.FC = (props: any): JSX.Element => {
       { text: "Okay", onPress: () => setError(null) },
     ]);
   }
-
+  // console.log("CHAPTER LIST ", chapterList);
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <FlatList

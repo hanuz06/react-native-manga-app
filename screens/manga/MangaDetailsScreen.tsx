@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { useTheme, Switch } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
@@ -28,6 +28,9 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
   );
 
   const getChapterContent = (chapterId: string) => {
+    // props.navigation.setOptions({
+    //   headerTitle: "chapterContent",
+    // });
     props.navigation.navigate("ChapterContent", {
       chapterId,
     });
@@ -43,7 +46,7 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
         title: null,
       });
     }
-  }, [index]);
+  }, [index]);  
 
   const info = () => <BookInfo {...bookDetails} />;
   const chapters = () => (
@@ -70,7 +73,7 @@ const MangaDetailsScreen: React.FC = (props: any): JSX.Element => {
       style={{
         backgroundColor: theme.colors.surface,
         shadowColor: theme.colors.text,
-        elevation: 6,
+        elevation: 5,
       }}
       labelStyle={{ color: theme.colors.primary }}
       pressColmageor={color(theme.colors.surface).darken(0.2)}

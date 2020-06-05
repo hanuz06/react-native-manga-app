@@ -9,6 +9,7 @@ import {
 
 import { Surface, Title, Divider, Text, useTheme } from "react-native-paper";
 import color from "color";
+import * as Linking from "expo-linking";
 
 import moment from "moment";
 
@@ -17,19 +18,6 @@ import Constants from "expo-constants";
 import { IBookDetails } from "../types";
 
 import { IMAGE_URL } from "react-native-dotenv";
-
-// type Props = {
-//   id: number;
-//   name: string;
-//   handle: string;
-//   date: string;
-//   content: string;
-//   image: string;
-//   avatar: string;
-//   comments: number;
-//   retweets: number;
-//   hearts: number;
-// };
 
 const BookInfo = ({
   id,
@@ -47,6 +35,8 @@ const BookInfo = ({
 
   const contentColor = color(theme.colors.text).alpha(0.8).rgb().string();
   const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
+
+  const handlePress = () => Linking.openURL(url);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -108,8 +98,18 @@ const BookInfo = ({
             <Text style={[styles.content, { color: contentColor }]}>
               {categories && categories.join(", ")}
             </Text>
-            <Title style={styles.title}>Link:</Title>
-            <Text style={[styles.content, { color: contentColor }]}>{url}</Text>
+            <Title
+              style={{ ...styles.title }}
+              // onPress={handlePress}
+            >
+              Link
+            </Title>
+            <Text
+              style={[styles.content, { color: "blue" }]}
+              onPress={handlePress}
+            >
+              {url}
+            </Text>
           </View>
         </Surface>
       </ScrollView>

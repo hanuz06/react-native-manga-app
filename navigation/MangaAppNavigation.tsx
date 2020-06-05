@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Platform,
   SafeAreaView,
   View,
   Easing,
   TouchableOpacity,
+  StatusBar,
   Button,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Animated,
 } from "react-native";
 import {
   DrawerItem,
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerContentComponentProps,  
+  DrawerContentComponentProps,
   DrawerNavigationProp,
   DrawerContentOptions,
 } from "@react-navigation/drawer";
@@ -32,6 +36,7 @@ import {
   Drawer,
   Text,
   TouchableRipple,
+  Searchbar,
   Switch,
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -48,6 +53,8 @@ import DrawerContent from "../components/DrawerContent";
 
 import { useDispatch } from "react-redux";
 import * as mangaActions from "../store/actions/mangaActions";
+import * as Animatable from "react-native-animatable";
+import { SimpleAnimation } from "react-native-simple-animations";
 
 // const theme = useTheme();
 
@@ -142,8 +149,13 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
       headerMode="screen"
       screenOptions={{
         header: ({ scene, previous, navigation }: any) => {
-          const [isOn, setIsOn] = useState(false);
+          const [searchWord, setSearchWord] = useState<string>("");
+          const [isOn, setIsOn] = useState<boolean>(false);
+          const [toggleValue, setToggleValue] = useState(true);
           const { options } = scene.descriptor;
+          const { name } = navigation.dangerouslyGetState().routes[
+            navigation.dangerouslyGetState().index
+          ];
           const title = options.title;
           // const title =
           // options.headerTitle !== undefined
@@ -151,45 +163,116 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
           //   : options.title !== undefined
           //   ? options.title
           //   : scene.route.name;
-          
+
           const switchToggle = () => {
             setIsOn(!isOn);
-            dispatch(mangaActions.reverseChapters());            
+            dispatch(mangaActions.reverseChapters());
           };
-          
+
+          let initialValue = new Animated.Value(50);
+          const interpolateSearchBar = initialValue.interpolate({
+            inputRange: [50, 160],
+            outputRange: toggleValue ? [50, 160] : [160, 50],
+          });
+          const animatedTransition = Animated.timing(initialValue, {
+            toValue: 160,
+            duration: 1200,
+            easing: Easing.linear,
+          });
+
+          const clickAnimate = () => {
+            animatedTransition.start();
+          };
+
           return (
-            <Appbar.Header
-              theme={{ colors: { primary: theme.colors.surface } }}
-              style={{ backgroundColor: theme.colors.primary }}
-            >
-              {previous ? (
-                <Appbar.BackAction
-                  onPress={navigation.goBack}
-                  color={theme.colors.accent}
-                  size={30}
-                />
-              ) : (
-                <TouchableOpacity onPress={navigation.openDrawer}>
-                  <Avatar.Icon
-                    size={50}
-                    icon="menu"
-                    color={theme.colors.accent}
-                  />
-                </TouchableOpacity>
-              )}
-              <Appbar.Content
-                title={options.headerTitle}
-                color={theme.colors.accent}
-                titleStyle={{ fontWeight: "bold" }}
+            <>
+              <StatusBar
+                hidden={name === "ChapterContent" ? true : false}
+                animated={true}
+                backgroundColor={theme.colors.primary}
+                translucent={true}
               />
-              {title === "chapters" && (
-                <Switch
-                  color="#98FB98"
-                  value={isOn}
-                  onValueChange={switchToggle}
-                />
-              )}
-            </Appbar.Header>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  Keyboard.dismiss(), setToggleValue(true);
+                }}
+                accessible={false}
+              >
+                <Appbar.Header
+                  theme={{ colors: { primary: theme.colors.surface } }}
+                  style={{ backgroundColor: theme.colors.primary }}
+                >
+                  {previous ? (
+                    <Appbar.BackAction
+                      onPress={() => {
+                        Keyboard.dismiss(),
+                          setSearchWord(""),
+                          setToggleValue(true),
+                          dispatch(mangaActions.setSearchWord("")),
+                          navigation.goBack();
+                      }}
+                      color={theme.colors.accent}
+                      size={30}
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
+                        Keyboard.dismiss(),
+                          setSearchWord(""),
+                          setToggleValue(true),
+                          dispatch(mangaActions.setSearchWord(""));
+                        navigation.openDrawer();
+                      }}
+                    >
+                      <Avatar.Icon
+                        size={50}
+                        icon="menu"
+                        color={theme.colors.accent}
+                      />
+                    </TouchableOpacity>
+                  )}
+                  <Appbar.Content
+                    title={options.headerTitle}
+                    color={theme.colors.accent}
+                    titleStyle={{ fontWeight: "bold" }}
+                  />
+
+                  {title === "chapters" && (
+                    <Switch
+                      color="#98FB98"
+                      value={isOn}
+                      onValueChange={switchToggle}
+                    />
+                  )}
+                  {(name === "MangaList" || name === "MangaByCategory") && (
+                    <Animated.View
+                      style={{
+                        width: interpolateSearchBar,
+                      }}
+                    >
+                      <Searchbar
+                        // placeholder="Search..."
+                        value={searchWord}
+                        onChangeText={(word) => {
+                          setSearchWord(word),
+                            dispatch(mangaActions.setSearchWord(word));
+                        }}
+                        onIconPress={() => {
+                          setToggleValue(!toggleValue), clickAnimate();
+                        }}
+                        style={{
+                          height: 35,
+                          borderRadius: 8,
+                          borderColor: "#ADD8E6",
+                          borderWidth: 1.5,
+                          elevation: 15,
+                        }}
+                      />
+                    </Animated.View>
+                  )}
+                </Appbar.Header>
+              </TouchableWithoutFeedback>
+            </>
           );
         },
         gestureEnabled: true,
@@ -211,7 +294,7 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
         component={MangaDetailsScreen}
         options={{
           headerTitle: "Manga book details",
-          headerStyleInterpolator: HeaderStyleInterpolators.forFade,          
+          headerStyleInterpolator: HeaderStyleInterpolators.forFade,
         }}
         initialParams={{ bookId: "" }}
       />

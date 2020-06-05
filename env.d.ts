@@ -4,6 +4,6 @@ declare module "react-native-dotenv" {
   export const ENV: "dev" | "prod";
 }
 
-// declare module "@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView" {
-//   export const ReactNativeZoomableView: any;
-// }
+declare module "react-native-simple-animations" {
+  export const SimpleAnimation: any;
+}

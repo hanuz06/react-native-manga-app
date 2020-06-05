@@ -7,6 +7,7 @@ import {
   SET_CHAPTER_CONTENT,
   CLEAR_CHAPTER_CONTENT,
   REVERSE_CHAPTERS,
+  SET_SEARCH_WORD,
 } from "../../types";
 import { BASE_URL } from "react-native-dotenv";
 import axios from "axios";
@@ -40,13 +41,13 @@ export const fetchMangaList = () => {
             a: alias,
             c: categories,
             h: hits,
-            i: _id,
+            i: id,
             im: image,
             s: status,
             t: title,
             ld: last_chapter_date,
           }: IKeys) => ({
-            _id,
+            id,
             alias,
             categories,
             hits,
@@ -138,12 +139,12 @@ export const fetchChapterContent = (chapterId: string) => {
   return async (dispatch: any, getState: any) => {
     const getChapter = await axios.get<any, any>(
       `${BASE_URL}/chapter/${chapterId}`
-    );    
+    );
 
     if (getChapter.data.images.length === 0) {
       throw new Error("Sorry, no chapter content is available");
     }
-   
+
     dispatch({
       type: SET_CHAPTER_CONTENT,
       chapterContent: getChapter.data.images.reverse(),
@@ -167,10 +168,19 @@ export const reverseChapters = () => {
       ...book,
       chapters: book.chapters.reverse(),
     };
-    
+
     dispatch({
       type: REVERSE_CHAPTERS,
       bookDetails: newBook,
+    });
+  };
+};
+
+export const setSearchWord = (word: any) => {
+  return async (dispatch: any, getState: any) => {
+    dispatch({
+      type: SET_SEARCH_WORD,
+      searchWord: word,
     });
   };
 };

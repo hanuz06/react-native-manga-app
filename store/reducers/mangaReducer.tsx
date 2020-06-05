@@ -8,10 +8,12 @@ import {
   SET_CHAPTER_CONTENT,
   CLEAR_CHAPTER_CONTENT,
   REVERSE_CHAPTERS,
+  SET_SEARCH_WORD,
 } from "../../types";
 
 const initialState: IBookState = {
   allMangaBooks: [],
+  searchWord: "",
   categories: [],
   booksByCategory: [],
   bookDetails: {
@@ -57,6 +59,11 @@ export default (state = initialState, action: BookActionsType) => {
       return {
         ...state,
         chapterContent: [],
+      };
+    case SET_SEARCH_WORD:
+      return {
+        ...state,
+        searchWord: action.searchWord,
       };
     default:
       return state;

@@ -11,7 +11,7 @@ import {
   View,
   Alert,
 } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator, useTheme, HelperText } from "react-native-paper";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,19 +19,36 @@ import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
 import BookItem from "../../components/BookItem";
 
+import MiniSearch from "minisearch";
+
 import moment from "moment";
 
 const MangaListScreen: React.FC = (props: any): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>();
+  const [error, setError] = useState<string | null>(null);
   const [bookList, setBookList] = useState<IBook[]>([]);
 
   const allMangaBooks = useSelector<IBookState, IBook[]>(
     (state: any) => state.manga.allMangaBooks
   );
+  const searchWord: string = useSelector<IBookState, string>(
+    (state: any) => state.manga.searchWord
+  ); 
 
   const dispatch = useDispatch();
+  const theme = useTheme();
+
+  useEffect(() => {
+    const filtered = allMangaBooks.filter((book) =>
+      book.title.toLowerCase().includes(searchWord.toLowerCase())
+    );
+    filtered.length !== 0 ? setBookList(filtered) : setBookList(allMangaBooks);
+
+    !searchWord && filtered.length === 0 && setError(null);
+
+    searchWord && filtered.length === 0 && setError("Oops, no books found");
+  }, [searchWord]); 
 
   useEffect(() => {
     setBookList(allMangaBooks);
@@ -42,14 +59,13 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   }, []);
 
   const loadBooks = useCallback(async () => {
-    // console.log("LOADBOOKS TRIGERRED....");
     setError(null);
     setIsRefreshing(true);
     setIsLoading(true);
     try {
       await dispatch(mangaActions.fetchMangaList());
     } catch (err) {
-      setError(err.message);
+      setError("Oops, page not found!");
     }
     setIsRefreshing(false);
     setIsLoading(false);
@@ -63,7 +79,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   };
 
   if (error) {
-    Alert.alert("Oops, page not found!", "Please try again later", [
+    Alert.alert(error, "", [
       { text: "Okay", onPress: () => setError(null) },
     ]);
   }
@@ -71,7 +87,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   if (isLoading) {
     return (
       <View style={styles.main}>
-        <ActivityIndicator size="large" color="tomato" />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -83,10 +99,10 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       contentContainerStyle={{ backgroundColor: "#C0C0C0" }}
       data={bookList}
       numColumns={2}
-      keyExtractor={(item: IBook): string => item._id}
+      keyExtractor={(item: IBook): string => item.id}
       renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
         <BookItem
-          bookId={itemData.item._id}
+          bookId={itemData.item.id}
           title={itemData.item.title}
           image={itemData.item.image}
           fetchBookDetails={fetchBookDetails}

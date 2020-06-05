@@ -1,6 +1,7 @@
 export const SET_MANGA_LIST = "SET_MANGA_LIST";
 export const SET_BOOKS_BY_CATEGORY = "SET_BOOKS_BY_CATEGORY";
 export const SET_BOOK = "SET_BOOK";
+export const SET_SEARCH_WORD = "SET_SEARCH_WORD";
 export const SET_CHAPTER_CONTENT = "SET_CHAPTER_CONTENT";
 export const CLEAR_CHAPTER_CONTENT = "CLEAR_CHAPTER_CONTENT";
 export const REVERSE_CHAPTERS = "REVERSE_CHAPTERS";
@@ -14,9 +15,9 @@ export interface IBookItems {
 }
 
 export interface IBook {
-  _id: string;
+  id: string;
   alias: string;
-  categories: [string];
+  categories: string[];
   hits: number;
   image: string;
   status: number;
@@ -39,6 +40,7 @@ export interface IBookDetails {
 
 export interface IBookState {
   allMangaBooks: IBook[];
+  searchWord: string;
   categories: string[];
   booksByCategory: IBook[];
   bookDetails: IBookDetails;
@@ -75,10 +77,16 @@ interface IReverseChapters {
   bookDetails: IBookDetails;
 }
 
+interface ISetSearchWord {
+  type: typeof SET_SEARCH_WORD;
+  searchWord: string;
+}
+
 export type BookActionsType =
   | ISetBooks
   | ISetBooksByCategory
   | ISetBook
   | ISetChapterContent
   | IClearChapterContent
-  | IReverseChapters;
+  | IReverseChapters
+  | ISetSearchWord;
