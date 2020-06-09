@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   StyleSheet,
   View,
@@ -117,7 +117,7 @@ const BookInfo = ({
   );
 };
 
-export default BookInfo;
+export default memo(BookInfo);
 
 const styles = StyleSheet.create({
   safeAreaView: {

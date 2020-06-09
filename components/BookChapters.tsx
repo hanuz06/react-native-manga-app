@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import {
   StyleSheet,
   Text,
@@ -70,7 +70,7 @@ const BookChapters = (props: any): JSX.Element => {
   );
 };
 
-export default BookChapters;
+export default memo(BookChapters);
 
 const styles = StyleSheet.create({
   main: {

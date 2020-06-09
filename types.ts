@@ -6,6 +6,17 @@ export const SET_CHAPTER_CONTENT = "SET_CHAPTER_CONTENT";
 export const CLEAR_CHAPTER_CONTENT = "CLEAR_CHAPTER_CONTENT";
 export const REVERSE_CHAPTERS = "REVERSE_CHAPTERS";
 
+export interface IKeys {
+  i: string;
+  a: string;
+  c: [string];
+  h: number;
+  im?: string | null;
+  s: number;
+  t: string;
+  ld: number | undefined;
+}
+
 export interface IBookItems {
   bookId: string;
   title: string;

@@ -53,8 +53,6 @@ import DrawerContent from "../components/DrawerContent";
 
 import { useDispatch } from "react-redux";
 import * as mangaActions from "../store/actions/mangaActions";
-import * as Animatable from "react-native-animatable";
-import { SimpleAnimation } from "react-native-simple-animations";
 
 // const theme = useTheme();
 
@@ -169,15 +167,18 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
             dispatch(mangaActions.reverseChapters());
           };
 
-          let initialValue = new Animated.Value(50);
+          let initialValue = useState(
+            new Animated.Value(toggleValue ? 50 : 160)
+          )[0];
           const interpolateSearchBar = initialValue.interpolate({
             inputRange: [50, 160],
-            outputRange: toggleValue ? [50, 160] : [160, 50],
+            outputRange: [50, 160],
           });
           const animatedTransition = Animated.timing(initialValue, {
-            toValue: 160,
-            duration: 1200,
+            toValue: toggleValue ? 160 : 50,
+            duration: 300,
             easing: Easing.linear,
+            // useNativeDriver: true,
           });
 
           const clickAnimate = () => {
@@ -247,6 +248,7 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
                   {(name === "MangaList" || name === "MangaByCategory") && (
                     <Animated.View
                       style={{
+                        // transform: [{ translageX: inffterpolateSearchBar }],
                         width: interpolateSearchBar,
                       }}
                     >

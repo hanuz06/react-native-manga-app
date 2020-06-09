@@ -7,6 +7,8 @@ import {
   SET_CHAPTER_CONTENT,
   CLEAR_CHAPTER_CONTENT,
   REVERSE_CHAPTERS,
+  SET_SEARCH_WORD,
+  IKeys,
 } from "../../types";
 import { BASE_URL } from "react-native-dotenv";
 import axios from "axios";
@@ -17,50 +19,14 @@ const capitalize = require("capitalize");
 
 import Book from "../../models/Book";
 
-import { mangaEden } from "../../data/mangaeden";
-
 export const fetchMangaList = () => {
   return async (dispatch: any, getState: any) => {
-    fetch(
-      `https://www.mangaeden.com/api/list/manga/4e70e9f6c092255ef7004336/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res: any) => res.json())
-      .then((response: any) => {
-        console.log("RESPONSE IN ACTION ", response);
-      })
-      .catch((err: any) => {
-        console.log("ERROR IN ACTION", err);
-      });
-
-    console.log("BEFORE GET REPLY");
-    const reply = await axios.get(
-      `https://www.mangaeden.com/api/list/manga/4e70e9f6c092255ef7004336/`
-    );
-
-    console.log("GET REPLY FROM AXIOS ", reply);
-
     const newAxios = axios.create({});
-
-    interface IKeys {
-      i: string;
-      a: string;
-      c: [string];
-      h: number;
-      im?: string | null;
-      s: number;
-      t: string;
-      ld: number | undefined;
-    }
 
     // replace object keys with better names
     newAxios.interceptors.response.use(
       (res) => {
+        console.log("RES IN ACTION ", res.data.manga);
         return res.data.manga.map(
           ({
             a: alias,
@@ -84,28 +50,36 @@ export const fetchMangaList = () => {
         );
       },
       (err) => {
-        console.log("ERROR FROM AXIOS ", err);
+        // console.log("ERROR IN ACTION ", err);
         throw err;
       }
     );
 
     const allMangaBooks = await newAxios.get<any, IBook[]>(
-      `${BASE_URL}/list/0`
-      // { data: null }
+      // `${BASE_URL}/list/0`
+      "https://www.mangaeden.com/api/list/0"
     );
+
+    // const res = await fetch("https://www.mangaeden.com/api/list/0");
+
+    // if (!res.ok) {
+    //   console.log("ERROR IN ACTION");
+    // }
+
+    // const resData = await res.json();
+
+    // console.log("RESDATA IN ACTION ", resData);
 
     const mangasWithImages = allMangaBooks.filter(
-      (manga: any) => manga.image !== null && manga.last_chapter_date
+      (manga) => manga.image !== null && manga.last_chapter_date
     );
-
-    console.log("MANGA LIST IN ACTION ", mangasWithImages);
 
     // get all categories
-    const categoriesArray: string[] = mangasWithImages.flatMap(
-      (book: IBook) => [...book.categories]
-    );
+    const categoriesArray: string[] = mangasWithImages.flatMap((book: IBook) => [
+      ...book.categories,
+    ]);
 
-    // Create and sort a set of unique names of categories
+    // create and sort a set of unique names of categories
     const setUniqueCategories = new Set(categoriesArray);
     const uniqueCategoriesArray = Array.from(setUniqueCategories).sort();
 
@@ -201,6 +175,15 @@ export const reverseChapters = () => {
     dispatch({
       type: REVERSE_CHAPTERS,
       bookDetails: newBook,
+    });
+  };
+};
+
+export const setSearchWord = (word: any) => {
+  return async (dispatch: any, getState: any) => {
+    dispatch({
+      type: SET_SEARCH_WORD,
+      searchWord: word,
     });
   };
 };

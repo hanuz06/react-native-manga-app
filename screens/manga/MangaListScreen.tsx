@@ -10,16 +10,17 @@ import {
   ListRenderItemInfo,
   View,
   Alert,
+  Text,
+  Dimensions,
+  ImageBackground,
 } from "react-native";
-import { ActivityIndicator, useTheme, HelperText } from "react-native-paper";
+import { ActivityIndicator, useTheme } from "react-native-paper";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
 import BookItem from "../../components/BookItem";
-
-import MiniSearch from "minisearch";
 
 import moment from "moment";
 
@@ -34,10 +35,12 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   );
   const searchWord: string = useSelector<IBookState, string>(
     (state: any) => state.manga.searchWord
-  ); 
+  );
 
   const dispatch = useDispatch();
   const theme = useTheme();
+
+  const { width, height } = Dimensions.get("screen");
 
   useEffect(() => {
     const filtered = allMangaBooks.filter((book) =>
@@ -48,7 +51,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     !searchWord && filtered.length === 0 && setError(null);
 
     searchWord && filtered.length === 0 && setError("Oops, no books found");
-  }, [searchWord]); 
+  }, [searchWord]);
 
   useEffect(() => {
     setBookList(allMangaBooks);
@@ -64,8 +67,10 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     setIsLoading(true);
     try {
       await dispatch(mangaActions.fetchMangaList());
+      // console.log("LOADBOOKS SUCCESS IN mangalist ");
     } catch (err) {
-      setError("Oops, page not found!");
+      // console.log("OOPS ERROR ", err);
+      setError("Oops, page not found! Please, try later.");
     }
     setIsRefreshing(false);
     setIsLoading(false);
@@ -78,16 +83,37 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     });
   };
 
-  if (error) {
-    Alert.alert(error, "", [
-      { text: "Okay", onPress: () => setError(null) },
-    ]);
-  }
+  // if (error) {
+  // Alert.alert(error, "", [{ text: "Okay", onPress: () => setError(null) }]);
+  // }
 
   if (isLoading) {
     return (
       <View style={styles.main}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
+
+  if (!isLoading && bookList.length === 0) {
+    return (
+      <View style={styles.main}>
+        <ImageBackground
+          source={require("../../assets/manga-front.jpeg")}
+          style={styles.backgroundImage}
+        >
+          <View style={styles.textContainer}>
+            <Text style={{ ...styles.text, color: theme.colors.primary }}>
+              SORRY, NO BOOKS FOUND
+            </Text>
+            <Text style={{ ...styles.text, color: theme.colors.primary }}>
+              IT MIGHT BE A NETWORK PROBLEM.
+            </Text>
+            <Text style={{ ...styles.text, color: theme.colors.primary }}>
+              PLEASE, TRY AGAIN LATER.
+            </Text>
+          </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -132,5 +158,27 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height,
+  },
+  textContainer: {
+    width: "80%",
+    height: 100,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
 });

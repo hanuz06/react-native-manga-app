@@ -1,29 +1,33 @@
 {
   "expo": {
-    "name": "manga",
+    "name": "My manga reader",
     "slug": "manga",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "privacy": "public",
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "orientation": "default",
+    "icon": "./assets/manga-icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/manga-spash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFB6C1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.hanuz.reactMangaReaderApp",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
-    "description": ""
+    "android": {
+      "package": "com.hanuz.reactMangaReaderApp",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/manga-spash.png",
+        "backgroundColor": "#FFB6C1"
+      }      
+    }
   }
 }
