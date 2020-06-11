@@ -16,13 +16,15 @@ import {
 } from "react-native";
 import { ActivityIndicator, useTheme } from "react-native-paper";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useEffect } from "react-redux";
 
 import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
 import BookItem from "../../components/BookItem";
 
 import moment from "moment";
+
+import fetchImage from "../../helper/fetchImage";
 
 const MangaListScreen: React.FC = (props: any): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -69,8 +71,8 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       await dispatch(mangaActions.fetchMangaList());
       // console.log("LOADBOOKS SUCCESS IN mangalist ");
     } catch (err) {
-      // console.log("OOPS ERROR ", err);
-      setError("Oops, page not found! Please, try later.");
+      // console.log("OOPS ERROR ", err.message);
+      setError(err.message);
     }
     setIsRefreshing(false);
     setIsLoading(false);
@@ -83,9 +85,9 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     });
   };
 
-  // if (error) {
-  // Alert.alert(error, "", [{ text: "Okay", onPress: () => setError(null) }]);
-  // }
+  if (error && error !== "Request failed with status code 503") {
+    Alert.alert(error, "", [{ text: "Okay", onPress: () => setError(null) }]);
+  }
 
   if (isLoading) {
     return (
@@ -127,6 +129,9 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       numColumns={2}
       keyExtractor={(item: IBook): string => item.id}
       renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
+
+        useEffect
+
         <BookItem
           bookId={itemData.item.id}
           title={itemData.item.title}

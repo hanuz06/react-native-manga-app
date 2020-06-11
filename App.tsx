@@ -7,6 +7,8 @@ import {
   configureFonts,
 } from "react-native-paper";
 
+import * as firebase from "firebase";
+
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider as ReduxProvider } from "react-redux";
 import ReduxThunk from "redux-thunk";
@@ -27,6 +29,8 @@ import {
 
 import MangaListScreen from "./screens/manga/MangaListScreen";
 import MangaDetailsScreen from "./screens/manga/MangaDetailsScreen";
+
+import { KEY } from "react-native-dotenv";
 
 // import { BASE_URL } from "react-native-dotenv";
 // import { DrawerContent } from "./navigation/MangaAppNavigation";
@@ -63,6 +67,22 @@ const theme = {
   },
   // fonts: configureFonts(fontConfig),
 };
+
+var firebaseConfig = {
+  apiKey: {KEY},
+  authDomain: "react-native-manga-reader-app.firebaseapp.com",
+  databaseURL: "https://react-native-manga-reader-app.firebaseio.com",
+  projectId: "react-native-manga-reader-app",
+  storageBucket: "react-native-manga-reader-app.appspot.com",
+  messagingSenderId: "863581223721",
+  appId: "1:863581223721:web:1104e2847f181021abd538",
+  measurementId: "G-9JCXKZ66LR",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
+
+
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState<boolean>(false);

@@ -105,7 +105,7 @@ export const RootNavigator = () => {
         },
       }}
       drawerStyle={{
-        width: 250,
+        width: 300,
       }}
       drawerType="back"
     >

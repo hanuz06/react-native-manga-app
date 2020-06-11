@@ -1,0 +1,854 @@
+{
+  "mangaList": [
+    {
+      "alias": "baby-steps",
+      "categories": [
+        "Comedy",
+        "Drama",
+        "Romance",
+        "School Life",
+        "Shounen",
+        "Slice of Life",
+        "Sports"
+      ],
+      "hits": 4761743,
+      "id": "4e70ea1dc092255ef7004d4a",
+      "image": "9ad2db47d3c2cb271072389b57c35d01635ad507431365743fafceb4.jpg",
+      "last_chapter_date": 1590316700.0,
+      "status": 1,
+      "title": "Baby Steps"
+    },
+    {
+      "alias": "minamoto-kun-monogatari",
+      "categories": [
+        "Adult",
+        "Drama",
+        "Harem",
+        "Romance",
+        "School Life",
+        "Seinen"
+      ],
+      "hits": 8249043,
+      "id": "4eeca499c092251b5b000012",
+      "image": "c2bc3ccf19b76bba3c75f4a2ad3a9547e7abc86030cd34455f1800a3.png",
+      "last_chapter_date": 1587505602.0,
+      "status": 1,
+      "title": "Minamoto-kun Monogatari"
+    },
+    {
+      "alias": "the-gamer",
+      "categories": [
+        "Action",
+        "Adventure",
+        "Comedy",
+        "School Life",
+        "Shounen",
+        "Supernatural"
+      ],
+      "hits": 6030397,
+      "id": "522e4b1d45b9ef7927d18ba4",
+      "image": "5416a5cc62c7eb2a967897697bf7c6efc4479fd525101b78dce0bdba.png",
+      "last_chapter_date": 1591346328.0,
+      "status": 2,
+      "title": "The Gamer"
+    },
+    {
+      "alias": "nyankoi",
+      "categories": [
+        "Comedy",
+        "Harem",
+        "Romance",
+        "School Life",
+        "Seinen",
+        "Supernatural"
+      ],
+      "hits": 297872,
+      "id": "4e70e9f8c092255ef70043fe",
+      "image": "c836f1825293e0c5a2c5597dc80adfef6caf2a63854eeff202269386.jpg",
+      "last_chapter_date": 1416892023.0,
+      "status": 0,
+      "title": "Nyankoi!"
+    },
+    {
+      "alias": "fragments-of-heart-legend",
+      "categories": [
+        "Drama",
+        "Fantasy",
+        "One Shot",
+        "Romance",
+        "Slice of Life",
+        "Tragedy"
+      ],
+      "hits": 0,
+      "id": "5bdda0a9719a1665d3a37535",
+      "image": "bc2e69f8d05f782372337af134b63e90bd27e8195c247c2f72048838.jpg",
+      "last_chapter_date": 1416892023.0,
+      "status": 2,
+      "title": "Fragments of heart [legend]"
+    },
+    {
+      "alias": "happy-if-you-died",
+      "categories": ["Comedy", "Drama", "Josei", "Romance", "Supernatural"],
+      "hits": 37700,
+      "id": "5bd4e4fc719a168fa1e482f7",
+      "image": "b9e0ba7d3ae93c93bffee098d67201c1acec9c6c468ddc96604df5a3.png",
+      "last_chapter_date": 1544016659.0,
+      "status": 2,
+      "title": "Happy if You Died"
+    }
+  ],
+  "mangaBookInfo": [
+    {
+      "aka": [
+        "&#12505;&#12452;&#12499;&#12540;&#12473;&#12486;&#12483;&#12503;",
+        "&#32593;&#29699;&#20248;&#31561;&#29983;",
+        "&#3648;&#3610;&#3610;&#3637;&#3657; &#3626;&#3648;&#3605;&#3655;&#3611;",
+        "&#32178;&#29699;&#20778;&#31561;&#29983;"
+      ],
+      "aka-alias": [
+        "1250512452124991254012473124861248312503",
+        "3259329699202483156129983",
+        "36483610361036373657-36263648360536553611",
+        "3217829699207783156129983"
+      ],
+      "alias": "baby-steps",
+      "artist": "KATSUKI Hikaru",
+      "artist_kw": ["katsuki", "hikaru"],
+      "author": "Katsuki Hikaru",
+      "author_kw": ["katsuki", "hikaru"],
+      "baka": true,
+      "categories": [
+        "Shounen",
+        "Comedy",
+        "Romance",
+        "Slice of Life",
+        "School Life",
+        "Drama",
+        "Sports"
+      ],
+      "chapters": [
+        [2, 1541906553, "Baby Steps 2:", "5be7a079719a169c5db298ef"],
+        [1, 1541906836, null, "5be7a194719a169c5db2a1bc"],
+        [0, 1377528113, null, "521b693145b9efad0e077291"]
+      ],
+      "chapters_len": 397,
+      "created": 1316022813,
+      "description": "Maruo Eiichirou (Ei-Chan), a first year honor student, one day decides he&#039;s unhappy with the way things are and lacks exercise. His mother gives him a flyer for the local Tennis Club and he decides to check it out. He&#039;s instantly captivated by it. With no prior experience and poor physical conditioning, join Ei-Chan as he embarks on a tennis journey using his smarts, dedication and work ethic.\n\nNote: Won the 38th Kodansha Manga Award in the Best Sh&#333;nen Manga category in 2014.\n",
+      "hits": 4762575,
+      "image": "9ad2db47d3c2cb271072389b57c35d01635ad507431365743fafceb4.jpg",
+      "imageURL": "http://www.mangaupdates.com/image/i160084.jpg",
+      "language": 0,
+      "last_chapter_date": 1590316700,
+      "random": [0.6737119520096779, 0],
+      "released": 2007,
+      "startsWith": "b",
+      "status": 1,
+      "title": "Baby Steps",
+      "title_kw": ["baby", "steps"],
+      "type": 0,
+      "updatedKeywords": true
+    },
+    {
+      "aka": [
+        "Minamoto-kun&#039;s Story",
+        "14 Wege der Versuchung",
+        "Love Instruction - How to become a seductor (French)",
+        "&#28304;&#21531;&#29289;&#35486;",
+        "&#1602;&#1589;&#1577; &#1605;&#1610;&#1606;&#1575;&#1605;&#1608;&#1578;&#1608;- &#1603;&#1608;&#1606;",
+        "Love Instruction - How to become a seductor",
+        "&#1048;&#1089;&#1090;&#1086;&#1088;&#1080;&#1103; &#1052;&#1080;&#1085;&#1072;&#1084;&#1086;&#1090;&#1086;-&#1082;&#1091;&#1085;&#1072;",
+        "&#1602;&#1589;&#1577; &#1605;&#1610;&#1606;&#1575;&#1605;&#1608;&#1578;&#1608;",
+        "&#48120;&#45208;&#47784;&#53664;&#44400; &#51060;&#50556;&#44592;"
+      ],
+      "aka-alias": [
+        "minamoto-kun039s-story",
+        "14-wege-der-versuchung",
+        "love-instruction---how-to-become-a-seductor-french",
+        "28304215312928935486",
+        "160215891577-16051610160615751605160815781608--160316081606",
+        "love-instruction---how-to-become-a-seductor",
+        "1048108910901086108810801103-10521080108510721084108610901086-1082109110851072",
+        "160215891577-16051610160615751605160815781608",
+        "4812045208477845366444400-510605055644592"
+      ],
+      "alias": "minamoto-kun-monogatari",
+      "artist": "INABA Minori",
+      "artist_kw": ["inaba", "minori"],
+      "author": "INABA Minori",
+      "author_kw": ["inaba", "minori"],
+      "baka": true,
+      "categories": [
+        "Romance",
+        "School Life",
+        "Seinen",
+        "Drama",
+        "Harem",
+        "Adult"
+      ],
+      "chapters": [
+        [2, 1324162449, "2", "4eed21d0c0922519eb000019"],
+        [1, 1324162449, "1", "4eed21dfc092251e54000019"],
+        [0, 1545212095, null, "5c1a10bf719a168b8bd2285b"]
+      ],
+      "chapters_len": 343,
+      "created": 1324080476,
+      "description": "Minamoto-kun has a face pretty enough to make people think he&#039;s a girl. Because of his face, he was bullied by the girls in middle school who were jealous of his good looks. He developed a fear of women due to the trauma, and for that reason chose to attend a high school for boys. Just as he enters college and makes a promise to himself to overcome the trauma of his past, his father remarries and asks him to move out of the house. His father arranges for him to live with his aunt (Minamoto-kun&#039;s father&#039;s younger sister) for the time being. She is an extremely beautiful woman who is also a non-tenured professor at his college. When he arrives at her apartment, she shows him her breasts and tells him that he will be her &quot;guinea pig&quot; in her reverse Hikari Genji project.\n",
+      "exempt_adult": true,
+      "hits": 8249069,
+      "image": "c2bc3ccf19b76bba3c75f4a2ad3a9547e7abc86030cd34455f1800a3.png",
+      "imageURL": "https://www.mangaupdates.com/image/i266792.jpg",
+      "language": 0,
+      "last_chapter_date": 1587505602,
+      "random": [0.586565109191293, 0],
+      "released": 2011,
+      "startsWith": "m",
+      "status": 1,
+      "title": "Minamoto-kun Monogatari",
+      "title_kw": ["minamoto", "kun", "monogatari"],
+      "type": 0,
+      "updatedKeywords": true
+    },
+    {
+      "aka": [
+        "&#36938;&#20448;",
+        "Å½aid&#279;jas(Lithuanian)",
+        "&#x17D;aid&#279;jas",
+        "&#x17D;aid&#279;jas(Lithuanian)",
+        "&#45908; &#44172;&#51060;&#47672;",
+        "&#1043;&#1077;&#1081;&#1084;&#1077;&#1088;",
+        "&#1575;&#1604;&#1604;&#1575;&#1593;&#1576; (Arabic)",
+        "Å½aid&#279;jas",
+        "&#1043;&#1077;&#1081;&#1084;&#1077;&#1088; (Russian)",
+        "&#1575;&#1604;&#1604;&#1575;&#1593;&#1576;",
+        "&#1048;&#1075;&#1088;&#1086;&#1082;",
+        "THE &#44172;&#51060;&#47672;"
+      ],
+      "aka-alias": [
+        "3693820448",
+        "aid279jaslithuanian",
+        "x17daid279jas",
+        "x17daid279jaslithuanian",
+        "45908-441725106047672",
+        "104310771081108410771088",
+        "157516041604157515931576-arabic",
+        "aid279jas",
+        "104310771081108410771088-russian",
+        "157516041604157515931576",
+        "10481075108810861082",
+        "the-441725106047672"
+      ],
+      "alias": "the-gamer",
+      "artist": "Sang-Ah",
+      "artist_kw": ["sang"],
+      "author": "Sung San-Young",
+      "author_kw": ["sung", "san", "young"],
+      "autoManga": true,
+      "baka": true,
+      "categories": [
+        "Supernatural",
+        "Shounen",
+        "Comedy",
+        "School Life",
+        "Adventure",
+        "Action"
+      ],
+      "chapters": [
+        [2, 1379109069, null, "523388cd45b9efe0f22f56a2"],
+        [1, 1378767050, null, "522e50ca45b9ef83ef94e8fc"]
+      ],
+      "chapters_len": 331,
+      "created": 1378765597,
+      "description": "Han Jee-Han, a normal high school student, suddenly develops a special power where his entire world is shifted into a game-like setting. He can see the power levels of people, look at the stats of a seemingly normal item, get abilities, and even level up! Follow Han Jee-Han as he discovers how to use this power, and maybe even where it came from.\n\nDescription from Line Webtoon:\nWhat if your life is just like playing a game? What if you can upgrade your status and gain more levels? A fantasy world is coming right at you!\n\nOriginal webtoon\nOfficial Translation\n\n------\nAdditional info about the universe in a novel &quot;The Gamer - Orgin&quot; (&#45908; &#44172;&#51060;&#47672; &#50724;&#47532;&#51652;)\n",
+      "hits": 6033127,
+      "image": "5416a5cc62c7eb2a967897697bf7c6efc4479fd525101b78dce0bdba.png",
+      "imageURL": "https://www.mangaupdates.com/image/i264799.jpg",
+      "language": 0,
+      "last_chapter_date": 1591346328,
+      "random": [0.16228283341843386, 0],
+      "released": 2013,
+      "startsWith": "t",
+      "status": 2,
+      "title": "The Gamer",
+      "title_kw": ["the", "gamer"],
+      "type": 1,
+      "updatedKeywords": true,
+      "url": "http://www.batoto.net/comic/_/comics/the-gamer-r9967/"
+    },
+    {
+      "aka": [
+        "&#29483;&#24895;&#19977;&#35282;&#24651;",
+        "Meow Love!",
+        "Nyankoi!",
+        "&#12395;&#12419;&#12435;&#12371;&#12356;!"
+      ],
+      "aka-alias": [
+        "2948324895199773528224651",
+        "meow-love",
+        "nyankoi",
+        "1239512419124351237112356"
+      ],
+      "alias": "nyankoi",
+      "artist": "FUJIWARA Sato",
+      "artist_kw": ["fujiwara", "sato"],
+      "author": "FUJIWARA Sato",
+      "author_kw": ["fujiwara", "sato"],
+      "baka": true,
+      "categories": [
+        "Supernatural",
+        "Comedy",
+        "Romance",
+        "School Life",
+        "Seinen",
+        "Harem"
+      ],
+      "chapters": [
+        [3, 1541863754, "The Mamba Girl", "5be6f94a719a16346d681eeb"],
+        [2, 1541863810, "Beginning!?", "5be6f982719a16346d682064"],
+        [1, 1541863958, "1", "5be6fa16719a16346d6824bc"]
+      ],
+      "chapters_len": 38,
+      "created": 1316022776,
+      "description": "The story is about a second-year high-school student named Junpei Kousaka, who not only hates cats but also is allergic to them. Unforunately, he happens to have a crush on a girl, Kaede Mizuno, who really loves cats. On the way home from school one day, Junpei kicks an empty can and happens to accidentally hit the Guardian Deity of Cats. Now he&#039;s able to understand cats but was practically given a curse. He has to grant 100 wishes from any cat or he&#039;ll turn into a cat himself.\n",
+      "hits": 297872,
+      "image": "c836f1825293e0c5a2c5597dc80adfef6caf2a63854eeff202269386.jpg",
+      "imageURL": "http://www.mangaupdates.com/image/i201664.jpg",
+      "language": 0,
+      "last_chapter_date": 1416892023,
+      "random": 0.18789180338896372,
+      "released": 2008,
+      "startsWith": "n",
+      "status": 0,
+      "title": "Nyankoi!",
+      "title_kw": ["nyankoi"],
+      "type": 0,
+      "updatedKeywords": true
+    },
+    {
+      "aka": [""],
+      "aka-alias": [""],
+      "alias": "fragments-of-heart-legend",
+      "artist": "Davide Vendetta",
+      "artist_kw": ["davide", "vendetta"],
+      "author": "Davide Vendetta",
+      "author_kw": ["davide", "vendetta"],
+      "categories": [
+        "Tragedy",
+        "Fantasy",
+        "Romance",
+        "Slice of Life",
+        "Drama",
+        "One Shot"
+      ],
+      "chapters": [
+        [3, 1541863754, "The Mamba Girl", "5be6f94a719a16346d681eeb"],
+        [2, 1541863810, "Beginning!?", "5be6f982719a16346d682064"],
+        [1, 1541863958, "1", "5be6fa16719a16346d6824bc"]
+      ],
+      "chapters_len": 0,
+      "created": 1540438200,
+      "description": "While two brothers play with their swords an old man approaches to witness the duel, recalling memories of old, when in his time, in the era of heroes, the world was populated by ferocious creatures.",
+      "hits": 0,
+      "image": "bc2e69f8d05f782372337af134b63e90bd27e8195c247c2f72048838.jpg",
+      "language": 0,
+      "last_chapter_date": null,
+      "released": 2018,
+      "startsWith": "f",
+      "status": 2,
+      "title": "Fragments of heart [legend]",
+      "title_kw": ["fragments", "heart", "legend"],
+      "type": 0,
+      "updatedKeywords": true
+    },
+    {
+      "aka": ["Умрите, будьте любезны", "죽어도 좋아♡", "Jug-eodo Joh-a"],
+      "aka-alias": ["", "", "jug-eodo-joh-a"],
+      "alias": "happy-if-you-died",
+      "artist": "Gold Kiwi Bird",
+      "artist_kw": ["gold", "kiwi", "bird"],
+      "author": "Gold Kiwi Bird",
+      "author_kw": ["gold", "kiwi", "bird"],
+      "autoManga": true,
+      "baka": true,
+      "categories": ["Supernatural", "Comedy", "Romance", "Drama", "Josei"],
+      "chapters": [
+        [2, 1540698917, null, "5bd53325719a1635e1955867"],
+        [1, 1540698808, null, "5bd532b8719a1635e1955359"],
+        [0, 1541810079, "Prologue", "5be6279f719a16346d6244cc"]
+      ],
+      "chapters_len": 59,
+      "created": 1540678908,
+      "description": "Everyone would be happier if this boss was dead...\n\nOriginal Webcomic\n",
+      "hits": 37726,
+      "image": "b9e0ba7d3ae93c93bffee098d67201c1acec9c6c468ddc96604df5a3.png",
+      "imageURL": null,
+      "language": 0,
+      "last_chapter_date": 1544016659,
+      "released": 2015,
+      "startsWith": "h",
+      "status": 2,
+      "title": "Happy if You Died",
+      "title_kw": ["happy", "you", "died"],
+      "type": 1,
+      "updatedKeywords": true,
+      "url": "https://bato.to/series/22502"
+    }
+  ],
+  "chapters": [
+    {
+      "521b693145b9efad0e077291": {
+        "images": [
+          [
+            16,
+            "01fb4d19ac9f9215ca9d594098e2bbb4572e117146109b9c638f732f.jpg",
+            901,
+            1300
+          ],
+          [
+            15,
+            "14299ec4794ad691ab532f80a1055e7d7b687f4c47229b713597d808.jpg",
+            900,
+            1300
+          ],
+          [
+            14,
+            "f542b2200b485164db20b928e3ddcdfbe0c2f4979331c0501504ee70.jpg",
+            900,
+            1300
+          ],
+          [
+            13,
+            "7897df9fc5ad82f33cba23c7b7d01c21afeaab7be89f397de0485754.jpg",
+            900,
+            1300
+          ],
+          [
+            12,
+            "1063fcac538a65867b50486c0c1620a6e116f2f41fcf52975802cf57.jpg",
+            900,
+            1300
+          ],
+          [
+            11,
+            "1c69eecc369063869318251e3e34e866e03f58805a8939dce95c0bf1.jpg",
+            900,
+            1300
+          ],
+          [
+            10,
+            "5e3f649b5a62585d817044cb6c02a7ad0c05b50ea3a3850db814944f.jpg",
+            900,
+            1300
+          ],
+          [
+            9,
+            "7c404c1327f216f19db1c6c839385ae36fe27c99af2aa740d908e63f.jpg",
+            900,
+            1300
+          ],
+          [
+            8,
+            "602efe8c0e1e976430708830cd886c52edf8279e5a6b2b8669af17a8.jpg",
+            900,
+            1300
+          ],
+          [
+            7,
+            "bb7c8408338ebb882451934eb618664e15832743028305c7f9fd98bc.jpg",
+            900,
+            1300
+          ],
+          [
+            6,
+            "080f66756586b2f7e938a9a85af6525c1b7fdb968244b69c3ffda3fa.jpg",
+            900,
+            1300
+          ],
+          [
+            5,
+            "a6233cf453c67718d408cbc05a0a07109782dd1f6c4d187aab855709.jpg",
+            900,
+            1300
+          ],
+          [
+            4,
+            "2c72c2f7adcb98cdc9c2121195da02ac4e3e12456de19e003e6a5f9e.jpg",
+            900,
+            1300
+          ],
+          [
+            3,
+            "257955cfcc3956765f2bd9186b169525aee2a26a694e21a06f5e8248.jpg",
+            900,
+            1300
+          ],
+          [
+            2,
+            "8828f957fd4198c4cd63aec63703c32c092a4bddc3b97c349cfffc9f.jpg",
+            887,
+            1300
+          ],
+          [
+            1,
+            "9a239308c2f1e0e0806de83b39376c26bdc1f7facc47dbbd1a74b3fe.jpg",
+            745,
+            672
+          ],
+          [
+            0,
+            "0151a830d8f3c3ec1a695294ae1fa8ce8936fd65e80e228f7ab4a348.jpg",
+            800,
+            600
+          ]
+        ]
+      }
+    },
+    {
+      "5be7a194719a169c5db2a1bc": {
+        "images": [
+          [
+            4,
+            "ba93106b547da368e7a3dcac3dfe8bbcd3effa5b655f313a9c65cd83.jpg",
+            728,
+            1129
+          ],
+          [
+            3,
+            "832b85519f73a501f28d4c24c12b693b15cf66daf29ff583f876ecd8.jpg",
+            1456,
+            1040
+          ],
+          [
+            2,
+            "b025c207375c56fd339ca9f993f76f13f3f19be055a759280474267e.jpg",
+            1456,
+            1278
+          ],
+          [
+            1,
+            "cea4315cffd2eb8917d95d65b314da91b284e1bef36eea7dfcae66c3.jpg",
+            1456,
+            1282
+          ],
+          [
+            0,
+            "83f63645a35a60735579833666ba6eccc21869799b6cf9ae6c93c262.jpg",
+            1456,
+            1031
+          ]
+        ]
+      }
+    },
+    {
+      "5be7a079719a169c5db298ef": {
+        "images": [
+          [
+            4,
+            "cfbd784625b0f10d35c0d144590e80b1f541ce24f7ca2d01ec1fd969.jpg",
+            800,
+            1207
+          ],
+          [
+            3,
+            "afbd5f36306a634cf7d1eb326f938a790870e3a5ae90111dbdc643b3.jpg",
+            800,
+            1203
+          ],
+          [
+            2,
+            "c9ccc0f0847f25a9a98454894623c7a6881c647c92afef0c102f6123.jpg",
+            800,
+            1196
+          ],
+          [
+            1,
+            "62918c28211de170cc2eac4e394b71e232cb0b1353238b6b6a97c1cd.jpg",
+            800,
+            1196
+          ],
+          [
+            0,
+            "aba0c62a229c05acb07cc92e17a144cf87e57126279a179f107093f3.jpg",
+            800,
+            1196
+          ]
+        ]
+      }
+    },
+    {
+      "5c1a10bf719a168b8bd2285b": {
+        "images": [
+          [
+            4,
+            "5643351b67da902affd532aef6a015ef80890d1ccf625ea3df026fee.jpg",
+            844,
+            1200
+          ],
+          [
+            3,
+            "42199225629309cc010f3102a94d52f9f5957053ab0734913bf44810.jpg",
+            844,
+            1200
+          ],
+          [
+            2,
+            "d40c6b19adbd9d2a778c7d79f310ec905853727879e50d62773b14c4.jpg",
+            844,
+            1200
+          ],
+          [
+            1,
+            "5171f35f9b7cb14eba8f3eb0f7cc12cae1316e3e94c0aca84cad534e.jpg",
+            844,
+            1200
+          ],
+          [
+            0,
+            "215261217a2fb06791a045584d899071c950aa502919da90b3ed7a61.jpg",
+            1120,
+            1120
+          ]
+        ]
+      }
+    },
+    {
+      "4eed21dfc092251e54000019": {
+        "images": [
+          [
+            4,
+            "a331bb02565e5e5552ca678bffd0d2a5f7fe9665d5fc010009514d82.png",
+            833,
+            1200
+          ],
+          [
+            3,
+            "3f858204e21465f6bca7ea160b84aa79cb2a81bc236bb0ff6dafe36f.png",
+            833,
+            1200
+          ],
+          [
+            2,
+            "2253829fac4a41ddaa5b98c5c569a0cc2cdf9118d61c18b13336eaeb.png",
+            833,
+            1200
+          ],
+          [
+            1,
+            "de4659656eb663f17086af15043ee2bca613941499bab1ca158bde15.jpg",
+            816,
+            1200
+          ],
+          [
+            0,
+            "46b2d947944ad81ca00aaa8905c074a537bfbd13514c16185a655b79.jpg",
+            816,
+            1200
+          ]
+        ]
+      }
+    },
+    {
+      "4eed21d0c0922519eb000019": {
+        "images": [
+          [
+            4,
+            "192593a3121fc544e89230e100d2c1675cf7ef074fa18a5ae96cebed.png",
+            830,
+            1200
+          ],
+          [
+            3,
+            "238d5a5b963e7e70c59224ba39e1b3f4b32ca6a315c3c4dbcceff0eb.png",
+            830,
+            1200
+          ],
+          [
+            2,
+            "32eeaa0474d41b1b90b8a65c7cfe453ae01cf2f6fb3d83ceeba144e5.png",
+            830,
+            1200
+          ],
+          [
+            1,
+            "20e57e7a4bc786867a1b50b2c04524a03c80ed7299d133b6904af8c5.png",
+            829,
+            1200
+          ],
+          [
+            0,
+            "d57ee4e083e893c14b1267296c669009ae9c51190e5f78dd54deb5e5.jpg",
+            1440,
+            1600
+          ]
+        ]
+      }
+    },
+    {
+      "522e50ca45b9ef83ef94e8fc": {
+        "images": [
+          [
+            2,
+            "830d634bf44acb1ff960480be1f0dd5d6907c92bbbccd6daf8f86b8d.jpg",
+            730,
+            2128
+          ],
+          [
+            1,
+            "c244f85767c57683b5d1d8c84e6fd3142d671fbd0338944c7d9a45ba.jpg",
+            730,
+            2441
+          ],
+          [
+            0,
+            "04677fcc1819710521ae43b000a0e520745fe6c323670a47bbd2f274.jpg",
+            730,
+            1235
+          ]
+        ]
+      }
+    },
+    {
+      "523388cd45b9efe0f22f56a2": {
+        "images": [
+          [
+            2,
+            "7555ee4ddd2e2bf5f364c111b0a37791c175d54a6e2f263aa63999bb.jpg",
+            728,
+            1081
+          ],
+          [
+            1,
+            "fd3d0854f5a8c501fdaa9d34e287c7b30083a78bfce6cbd741bcb8a9.jpg",
+            1128,
+            847
+          ],
+          [
+            0,
+            "4c731285d113be742a10f872159390a264820f9d69c8953ec71a1e8b.jpg",
+            728,
+            1081
+          ]
+        ]
+      }
+    },
+    {
+      "5be6f982719a16346d682064": {
+        "images": [
+          [
+            2,
+            "cb38078ad70d1f58a53f077683494f81380bfbd900e324a357269fa5.jpg",
+            728,
+            1071
+          ],
+          [
+            1,
+            "2eabadcccb8b429c060f314d8ce1992698efa6942edcbe3188f6da1a.jpg",
+            728,
+            1071
+          ],
+          [
+            0,
+            "ba070cd612c2d1c4e265f6bbbe8919440ed2fd43752fc8a7d71cf3d0.jpg",
+            728,
+            1071
+          ]
+        ]
+      }
+    },
+    {
+      "5be6f94a719a16346d681eeb": {
+        "images": [
+          [
+            2,
+            "4a38c4ed064fec78ee930edb45af671cf72f19978a0008642616bd95.jpg",
+            728,
+            1048
+          ],
+          [
+            1,
+            "f92955144475a683e4a8a3d0596e6f912982dec6d3b2afc25dee10d9.jpg",
+            728,
+            1071
+          ],
+          [
+            0,
+            "1098928052ec5a7959e87fd347e0e02f2f8d8c9f8bb68668fba69d39.jpg",
+            728,
+            1071
+          ]
+        ]
+      }
+    },
+    {
+      "5be6279f719a16346d6244cc": {
+        "images": [
+          [
+            2,
+            "b010e93cca15862bd154f84a2acea0c336ade278d6aa4553fda7d454.jpg",
+            760,
+            1620
+          ],
+          [
+            1,
+            "b6e18da1cf4b04254bdad1742513bd21f393cc06c455345c5ea5747f.jpg",
+            760,
+            1668
+          ],
+          [
+            0,
+            "fe30760c7a6a35d3c6379652e9ce9416f4aca1fb94740e33cce8d60a.jpg",
+            700,
+            665
+          ]
+        ]
+      }
+    },
+    {
+      "5bd532b8719a1635e1955359": {
+        "images": [
+          [
+            2,
+            "eb93f9b8c0572f7ecbdce35aa98fec49f91011bb7d1c149021c90626.jpg",
+            760,
+            1392
+          ],
+          [
+            1,
+            "d83067f22ebcb7d245f5b26807f56d706b379c127b416c9078a3c25c.jpg",
+            760,
+            1344
+          ],
+          [
+            0,
+            "a0e575b5e3e92f2903ac14c200915b1521882619f7142c909270b3b5.jpg",
+            700,
+            665
+          ]
+        ]
+      }
+    },
+    {
+      "5bd53325719a1635e1955867": {
+        "images": [
+          [
+            2,
+            "a4cc06198918756660db42dfa5f91bf5e7b29dcdfd49beeeee397ae3.jpg",
+            760,
+            1146
+          ],
+          [
+            1,
+            "51e4d29b522ed2c11bdf0ec20c4a901ee5564b47f4fa0c91e07d52b7.jpg",
+            760,
+            1434
+          ],
+          [
+            0,
+            "c1b5ee7519969b63701b617cc1856a8f302e4dd63c16f9cfd55ae0d1.jpg",
+            700,
+            665
+          ]
+        ]
+      }
+    }
+  ]
+}

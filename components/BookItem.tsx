@@ -41,7 +41,7 @@ const BookItem = ({
   //     }}
   //   />
   // );
-
+//  console.log('FETCH IMAGE IN BOOKITEM ', fetchImage(image))
   return (
     <TouchableOpacity
       onPress={() => fetchBookDetails(bookId)}
@@ -54,7 +54,7 @@ const BookItem = ({
         />
         <Card.Cover
           source={{
-            uri: `${IMAGE_URL}/${image}`,
+            uri: image,
           }}
         />
         <Card.Content>

@@ -11,6 +11,7 @@ web-build/
 web-report/
 .env
 .d.ts
+coverage/**/*
 
 # macOS
 .DS_Store

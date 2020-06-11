@@ -9,11 +9,9 @@ import {
   REVERSE_CHAPTERS,
   SET_SEARCH_WORD,
 } from "../../types";
-import { BASE_URL, IMAGE_URL } from "react-native-dotenv";
+import { BASE_URL } from "react-native-dotenv";
 import axios from "axios";
 import arraySort from "array-sort";
-
-import * as firebase from "firebase";
 
 const Entities = require("html-entities").AllHtmlEntities;
 const capitalize = require("capitalize");
@@ -22,70 +20,96 @@ import Book from "../../models/Book";
 
 import { mangaEden } from "../../data/mangaeden";
 
-import fetchImage from "../../helper/fetchImage";
-
 export const fetchMangaList = () => {
   return async (dispatch: any, getState: any) => {
-    // const imageRef = firebase
-    //   .storage()
-    //   .ref(
-    //     "images/2eabadcccb8b429c060f314d8ce1992698efa6942edcbe3188f6da1a.jpg"
-    //   );
+    fetch("https://www.mangaeden.com/api/manga/4e70e9f6c092255ef7004336/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res: any) => res.json())
+      .then((response: any) => {
+        console.log("RESPONSE IN ACTION ", response);
+      })
+      .catch((err: any) => {
+        console.log("ERROR IN ACTION", err);
+      });
 
-    // const foundImage = await imageRef.getDownloadURL();
+    console.log("BEFORE GET REPLY");
+    // const reply = await axios.get("http://www.mangaeden.com/api/list/0");
 
-    // console.log("FOUND IMAGE IN ACTION ", foundImage);
+    // console.log("GET REPLY FROM AXIOS ", reply);
 
-    // fetch(
-    //   `https://www.mangaeden.com/api/list/0`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // )
-    //   .then((res: any) => res.json())
-    //   .then((response: any) => {
-    //     console.log("RESPONSE IN ACTION ", response);
-    //   })
-    //   .catch((err: any) => {
-    //     console.log("ERROR IN ACTION", err);
-    //   });
+    const newAxios = axios.create({});
 
-    // console.log("BEFORE GET REPLY");
-    const res = await axios.get(
-      `https://react-native-manga-reader-app.firebaseio.com/mangaList.json`
-    );
-
-    if (!res.data) {
-      throw Error("Sorry, no books found");
+    interface IKeys {
+      i: string;
+      a: string;
+      c: [string];
+      h: number;
+      im?: string | null;
+      s: number;
+      t: string;
+      ld: number | undefined;
     }
 
+    // replace object keys with better names
+    newAxios.interceptors.response.use(
+      (res) => {
+        return res.data.manga.map(
+          ({
+            a: alias,
+            c: categories,
+            h: hits,
+            i: id,
+            im: image,
+            s: status,
+            t: title,
+            ld: last_chapter_date,
+          }: IKeys) => ({
+            id,
+            alias,
+            categories,
+            hits,
+            image,
+            status,
+            title,
+            last_chapter_date,
+          })
+        );
+      },
+      (err) => {
+        console.log("ERROR FROM AXIOS ", err);
+        throw err;
+      }
+    );
+
+    const allMangaBooks = await newAxios.get<any, IBook[]>(
+      `${BASE_URL}/list/0`
+      // ,
+      // { data: null }
+    );
+
+    const mangasWithImages = allMangaBooks.filter(
+      (manga: any) => manga.image !== null && manga.last_chapter_date
+    );
+
+    // console.log("MANGA LIST IN ACTION ", mangasWithImages);
+
     // get all categories
-    const categoriesArray: string[] = res.data.flatMap((book: IBook) => [
-      ...book.categories,
-    ]);
+    const categoriesArray: string[] = mangasWithImages.flatMap(
+      (book: IBook) => [...book.categories]
+    );
 
     // Create and sort a set of unique names of categories
     const setUniqueCategories = new Set(categoriesArray);
     const uniqueCategoriesArray = Array.from(setUniqueCategories).sort();
 
-    const sortedMangas = arraySort(res.data, ["last_chapter_date"], {
+    const sortedMangas = arraySort(mangasWithImages, ["last_chapter_date"], {
       reverse: true,
     });
 
-    // const getBooks = async () => {
-    //   return Promise.all(
-    //     sortedMangas.map((book: any) => ({...book, image: fetchImage(book.image)}))
-    //   );
-    // };
-
-    // Promise.all(
-    //   sortedMangas.map((book: any) => ({...book, image: fetchImage(book.image)}))
-    // ).then(conbsole.)
-
-    // console.log("SORTED MANGAS IN ACTION ", getBooks());
     dispatch({
       type: SET_MANGA_LIST,
       books: sortedMangas,
