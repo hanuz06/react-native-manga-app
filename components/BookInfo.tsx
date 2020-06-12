@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -19,6 +19,9 @@ import { IBookDetails } from "../types";
 
 import { IMAGE_URL } from "react-native-dotenv";
 
+import * as firebase from "firebase/app";
+import "firebase/storage";
+
 const BookInfo = ({
   id,
   author,
@@ -33,10 +36,25 @@ const BookInfo = ({
 }: IBookDetails) => {
   const theme = useTheme();
 
+  const [mangaImage, setMangaImage] = useState<string>();
+
   const contentColor = color(theme.colors.text).alpha(0.8).rgb().string();
   const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
 
   const handlePress = () => Linking.openURL(url);
+
+  const getImageUrl = useCallback(
+    async (image) => {
+      const imageRef: any = firebase.storage().ref(`images/${image}`);
+      const foundImage = await imageRef.getDownloadURL();
+      setMangaImage(foundImage);
+    },
+    [image]
+  );
+
+  useEffect(() => {
+    getImageUrl(image);
+  }, [image, getImageUrl]);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -45,7 +63,7 @@ const BookInfo = ({
           <View style={styles.topRow}>
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: `${IMAGE_URL}/${image}` }}
+                source={{ uri: mangaImage }}
                 style={[
                   styles.image,
                   {
@@ -105,7 +123,13 @@ const BookInfo = ({
               Link
             </Title>
             <Text
-              style={[styles.content, { color: "blue" }]}
+              style={[
+                styles.content,
+                {
+                  color: "blue",
+                  textDecorationLine: "underline",                  
+                },
+              ]}
               onPress={handlePress}
             >
               {url}

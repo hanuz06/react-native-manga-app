@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   StyleSheet,
   FlatList,
@@ -23,6 +23,9 @@ import {
 import { IBookItems } from "../types";
 import { IMAGE_URL } from "react-native-dotenv";
 
+import * as firebase from "firebase/app";
+import "firebase/storage";
+
 const { width, height } = Dimensions.get("screen");
 
 const BookItem = ({
@@ -32,16 +35,21 @@ const BookItem = ({
   image,
   fetchBookDetails,
 }: IBookItems) => {
-  // const LeftContent = (props: any) => (
-  //   <Avatar.Image
-  //     {...props}
-  //     size={28}
-  //     source={{
-  //       uri: `${IMAGE_URL}/${image}`,
-  //     }}
-  //   />
-  // );
-//  console.log('FETCH IMAGE IN BOOKITEM ', fetchImage(image))
+  const [mangaImage, setMangaImage] = useState<string>();
+
+  const getImageUrl = useCallback(
+    async (image) => {
+      const imageRef: any = firebase.storage().ref(`images/${image}`);
+      const foundImage = await imageRef.getDownloadURL();
+      setMangaImage(foundImage);
+    },
+    [image]
+  );
+
+  useEffect(() => {
+    getImageUrl(image);
+  }, [image, getImageUrl]);
+
   return (
     <TouchableOpacity
       onPress={() => fetchBookDetails(bookId)}
@@ -54,7 +62,7 @@ const BookItem = ({
         />
         <Card.Cover
           source={{
-            uri: image,
+            uri: mangaImage,
           }}
         />
         <Card.Content>

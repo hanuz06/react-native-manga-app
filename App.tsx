@@ -82,7 +82,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
 
-
+console.ignoredYellowBox = [
+  'Setting a timer'
+]
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState<boolean>(false);

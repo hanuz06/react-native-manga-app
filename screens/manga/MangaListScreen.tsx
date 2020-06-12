@@ -12,19 +12,17 @@ import {
   Alert,
   Text,
   Dimensions,
-  ImageBackground,
+  ImageBackground,YellowBox
 } from "react-native";
 import { ActivityIndicator, useTheme } from "react-native-paper";
 
-import { useSelector, useDispatch, useEffect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
 import BookItem from "../../components/BookItem";
 
 import moment from "moment";
-
-import fetchImage from "../../helper/fetchImage";
 
 const MangaListScreen: React.FC = (props: any): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,7 +43,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   const { width, height } = Dimensions.get("screen");
 
   useEffect(() => {
-    const filtered = allMangaBooks.filter((book) =>
+    const filtered = allMangaBooks.filter((book:IBook) =>
       book.title.toLowerCase().includes(searchWord.toLowerCase())
     );
     filtered.length !== 0 ? setBookList(filtered) : setBookList(allMangaBooks);
@@ -57,7 +55,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
 
   useEffect(() => {
     setBookList(allMangaBooks);
-  }, [allMangaBooks]);
+  }, [allMangaBooks,setBookList]);
 
   useEffect(() => {
     loadBooks();
@@ -69,6 +67,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     setIsLoading(true);
     try {
       await dispatch(mangaActions.fetchMangaList());
+      YellowBox.ignoreWarnings(["Setting a timer"]);
       // console.log("LOADBOOKS SUCCESS IN mangalist ");
     } catch (err) {
       // console.log("OOPS ERROR ", err.message);
@@ -128,9 +127,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       data={bookList}
       numColumns={2}
       keyExtractor={(item: IBook): string => item.id}
-      renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
-
-        useEffect
+      renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (     
 
         <BookItem
           bookId={itemData.item.id}

@@ -13,8 +13,6 @@ import { BASE_URL, IMAGE_URL } from "react-native-dotenv";
 import axios from "axios";
 import arraySort from "array-sort";
 
-import * as firebase from "firebase";
-
 const Entities = require("html-entities").AllHtmlEntities;
 const capitalize = require("capitalize");
 
@@ -24,27 +22,29 @@ import { mangaEden } from "../../data/mangaeden";
 
 import fetchImage from "../../helper/fetchImage";
 
+import * as firebase from "firebase";
+import { imageNames } from "../../data/imageNames";
+
 export const fetchMangaList = () => {
   return async (dispatch: any, getState: any) => {
-    // const imageRef = firebase
-    //   .storage()
-    //   .ref(
-    //     "images/2eabadcccb8b429c060f314d8ce1992698efa6942edcbe3188f6da1a.jpg"
-    //   );
+    // let results = await Promise.all(
+    //   imageNames.map(async (imageName) => {
+    //     const imageRef = firebase.storage().ref(`images/${imageName}`);
 
-    // const foundImage = await imageRef.getDownloadURL();
+    //     const foundImage = await imageRef.getDownloadURL();
+    //     console.log('RETURNED IMAGE URL IN ACTIONS ', foundImage)
+    //     return foundImage;
+    //   })
+    // );
 
     // console.log("FOUND IMAGE IN ACTION ", foundImage);
 
-    // fetch(
-    //   `https://www.mangaeden.com/api/list/0`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // )
+    // fetch("https://www.mangaeden.com/api/list/0", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
     //   .then((res: any) => res.json())
     //   .then((response: any) => {
     //     console.log("RESPONSE IN ACTION ", response);
@@ -53,10 +53,16 @@ export const fetchMangaList = () => {
     //     console.log("ERROR IN ACTION", err);
     //   });
 
-    // console.log("BEFORE GET REPLY");
+    // // console.log("BEFORE GET REPLY");
+    
+    // axios
+    // .get("https://www.mangaeden.com/api/list/0")
+    // .then((output) => console.log('xxxxxxxxx ',output.data));
+    
     const res = await axios.get(
       `https://react-native-manga-reader-app.firebaseio.com/mangaList.json`
     );
+
 
     if (!res.data) {
       throw Error("Sorry, no books found");
@@ -112,23 +118,49 @@ export const setBooksByCategory = (category: string) => {
 export const fetchBookDetails = (bookId: string) => {
   return async (dispatch: any, getState: any) => {
     const entities = new Entities();
+    // console.log("BOOKID IN ACTION ", bookId);
+    // const fetchedBook = await axios.get<any, any>(
+    //   `${BASE_URL}/manga/${bookId}`
+    // );
 
-    const fetchedBook = await axios.get<any, any>(
-      `${BASE_URL}/manga/${bookId}`
+    const fetchedAllBookInfo = await axios(
+      `https://react-native-manga-reader-app.firebaseio.com/mangaBookInfo.json`
     );
+
+    let fetchedBook: any = {};
+
+    fetchedAllBookInfo.data.map((book: any) => {
+      if (book.bookId == bookId) {
+        fetchedBook = book;
+      }
+    });
 
     const foundBook = new Book(
       bookId,
-      capitalize.words(fetchedBook.data.author),
-      fetchedBook.data.categories,
-      fetchedBook.data.chapters.reverse(),
-      entities.decode(fetchedBook.data.description),
-      fetchedBook.data.image,
-      fetchedBook.data.last_chapter_date,
-      fetchedBook.data.released,
-      fetchedBook.data.title,
-      fetchedBook.data.url
+      capitalize.words(fetchedBook.author),
+      fetchedBook.categories,
+      fetchedBook.chapters.reverse(),
+      entities.decode(fetchedBook.description),
+      fetchedBook.image,
+      fetchedBook.last_chapter_date,
+      fetchedBook.released,
+      fetchedBook.title,
+      fetchedBook.url
     );
+
+    // console.log("fetchedBook BOOK ", foundBook);
+    // const foundBook = new Book(
+    //   bookId,
+    //   capitalize.words(fetchedBook.data.author),
+    //   fetchedBook.data.categories,
+    //   fetchedBook.data.chapters.reverse(),
+    //   entities.decode(fetchedBook.data.description),
+    //   fetchedBook.data.image,
+    //   fetchedBook.data.last_chapter_date,
+    //   fetchedBook.data.released,
+    //   fetchedBook.data.title,
+    //   fetchedBook.data.url
+    // );
 
     dispatch({
       type: SET_BOOK,
@@ -139,10 +171,14 @@ export const fetchBookDetails = (bookId: string) => {
 
 export const fetchChapterContent = (chapterId: string) => {
   return async (dispatch: any, getState: any) => {
-    const getChapter = await axios.get<any, any>(
-      `${BASE_URL}/chapter/${chapterId}`
+    // const getChapter = await axios.get<any, any>(
+    //   `${BASE_URL}/chapter/${chapterId}`
+    // );
+    
+    const getChapter = await axios(
+      `https://react-native-manga-reader-app.firebaseio.com/chapters/${chapterId}.json`
     );
-
+   
     if (getChapter.data.images.length === 0) {
       throw new Error("Sorry, no chapter content is available");
     }
