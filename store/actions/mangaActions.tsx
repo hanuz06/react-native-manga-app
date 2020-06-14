@@ -40,7 +40,7 @@ export const fetchMangaList = () => {
     // console.log("FOUND IMAGE IN ACTION ", foundImage);
 
     // fetch("https://www.mangaeden.com/api/list/0", {
-    //   method: "POST",
+    //   method: "GET",
     //   headers: {
     //     "Content-Type": "application/json",
     //   },
@@ -98,7 +98,7 @@ export const fetchMangaList = () => {
       categories: uniqueCategoriesArray,
     });
   };
-};
+}; 
 
 export const setBooksByCategory = (category: string) => {
   return async (dispatch: any, getState: any) => {

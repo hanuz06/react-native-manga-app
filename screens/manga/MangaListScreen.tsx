@@ -12,7 +12,8 @@ import {
   Alert,
   Text,
   Dimensions,
-  ImageBackground,YellowBox
+  ImageBackground,
+  YellowBox,
 } from "react-native";
 import { ActivityIndicator, useTheme } from "react-native-paper";
 
@@ -43,7 +44,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   const { width, height } = Dimensions.get("screen");
 
   useEffect(() => {
-    const filtered = allMangaBooks.filter((book:IBook) =>
+    const filtered = allMangaBooks.filter((book: IBook) =>
       book.title.toLowerCase().includes(searchWord.toLowerCase())
     );
     filtered.length !== 0 ? setBookList(filtered) : setBookList(allMangaBooks);
@@ -55,7 +56,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
 
   useEffect(() => {
     setBookList(allMangaBooks);
-  }, [allMangaBooks,setBookList]);
+  }, [allMangaBooks, setBookList]);
 
   useEffect(() => {
     loadBooks();
@@ -67,7 +68,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     setIsLoading(true);
     try {
       await dispatch(mangaActions.fetchMangaList());
-      YellowBox.ignoreWarnings(["Setting a timer"]);
+      YellowBox.ignoreWarnings(["Setting a timer"]);      
       // console.log("LOADBOOKS SUCCESS IN mangalist ");
     } catch (err) {
       // console.log("OOPS ERROR ", err.message);
@@ -127,8 +128,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       data={bookList}
       numColumns={2}
       keyExtractor={(item: IBook): string => item.id}
-      renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (     
-
+      renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
         <BookItem
           bookId={itemData.item.id}
           title={itemData.item.title}

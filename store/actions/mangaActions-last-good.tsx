@@ -51,6 +51,7 @@ export const fetchMangaList = () => {
       },
       (err) => {
         // console.log("ERROR IN ACTION ", err);
+        // return Promise.reject(error);
         throw err;
       }
     );

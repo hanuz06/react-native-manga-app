@@ -81,6 +81,7 @@ export const fetchMangaList = () => {
       },
       (err) => {
         console.log("ERROR FROM AXIOS ", err);
+        // return Promise.reject(error);
         throw err;
       }
     );

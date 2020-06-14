@@ -19,8 +19,7 @@ import { IBookDetails } from "../types";
 
 import { IMAGE_URL } from "react-native-dotenv";
 
-import * as firebase from "firebase/app";
-import "firebase/storage";
+import useFetchImage from "../utils/hooks/useFetchImage";
 
 const BookInfo = ({
   id,
@@ -36,25 +35,12 @@ const BookInfo = ({
 }: IBookDetails) => {
   const theme = useTheme();
 
-  const [mangaImage, setMangaImage] = useState<string>();
+  const imageUrl: string | undefined = useFetchImage(image);
 
   const contentColor = color(theme.colors.text).alpha(0.8).rgb().string();
   const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
 
-  const handlePress = () => Linking.openURL(url);
-
-  const getImageUrl = useCallback(
-    async (image) => {
-      const imageRef: any = firebase.storage().ref(`images/${image}`);
-      const foundImage = await imageRef.getDownloadURL();
-      setMangaImage(foundImage);
-    },
-    [image]
-  );
-
-  useEffect(() => {
-    getImageUrl(image);
-  }, [image, getImageUrl]);
+  const handlePress = () => Linking.openURL(url); 
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -63,7 +49,7 @@ const BookInfo = ({
           <View style={styles.topRow}>
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: mangaImage }}
+                source={{ uri: imageUrl }}
                 style={[
                   styles.image,
                   {
