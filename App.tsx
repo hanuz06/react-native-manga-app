@@ -7,7 +7,12 @@ import {
   configureFonts,
 } from "react-native-paper";
 
-import * as firebase from "firebase";
+// This import loads the firebase namespace.
+import firebase from "firebase/app";
+
+// These imports load individual services into the firebase namespace.
+import "firebase/storage";
+import "firebase/database";
 
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider as ReduxProvider } from "react-redux";
@@ -69,7 +74,7 @@ const theme = {
 };
 
 var firebaseConfig = {
-  apiKey: {KEY},
+  apiKey: { KEY },
   authDomain: "react-native-manga-reader-app.firebaseapp.com",
   databaseURL: "https://react-native-manga-reader-app.firebaseio.com",
   projectId: "react-native-manga-reader-app",
@@ -81,10 +86,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
-
-console.ignoredYellowBox = [
-  'Setting a timer'
-]
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState<boolean>(false);

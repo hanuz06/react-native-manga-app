@@ -9,11 +9,11 @@ describe("<App />", () => {
     const tree = renderer.create(<App />).toJSON();
     console.log(tree);
     expect(tree).toMatchSnapshot();
-    // expect(tree).not.toEqual(null);    
+    // expect(tree).not.toEqual(null);
   });
 });
 
-it('renders correctly', () => {
+it("renders correctly", () => {
   renderer.create(<App />);
 });
 

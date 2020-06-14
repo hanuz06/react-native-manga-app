@@ -59,7 +59,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
   }, [allMangaBooks, setBookList]);
 
   useEffect(() => {
-    loadBooks();
+    bookList.length === 0 && loadBooks();
   }, []);
 
   const loadBooks = useCallback(async () => {
@@ -68,7 +68,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     setIsLoading(true);
     try {
       await dispatch(mangaActions.fetchMangaList());
-      YellowBox.ignoreWarnings(["Setting a timer"]);      
+      YellowBox.ignoreWarnings(["Setting a timer"]);
       // console.log("LOADBOOKS SUCCESS IN mangalist ");
     } catch (err) {
       // console.log("OOPS ERROR ", err.message);
