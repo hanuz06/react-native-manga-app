@@ -1,34 +1,17 @@
-import React, { useCallback, useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  Alert,
-  ListRenderItemInfo,
-  Dimensions,
-} from "react-native";
-
+import React, { memo } from "react";
+import { StyleSheet, View, Image, Dimensions } from "react-native";
 import { ReactNativeZoomableView } from "@dudigital/react-native-zoomable-view";
-
-import { useTheme, ActivityIndicator } from "react-native-paper";
-
-import color from "color";
-
-import { IBookState } from "../../types";
-
-import { IMAGE_URL } from "react-native-dotenv";
-
-import useFetchImage from "../utils/hooks/useFetchImage";
-
 const { width } = Dimensions.get("window");
 
-const ChapterContentDisplay: React.FC = ({ image }: any): JSX.Element => {
-  const theme = useTheme();
+interface IChapterContentDisplay {
+  imageBorderColor: string;
+  image: string;
+}
 
-  const imageUrl: string | undefined = useFetchImage(image);
-  const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
-
+const ChapterContentDisplay: React.FC<IChapterContentDisplay> = ({
+  imageBorderColor,
+  image,
+}): JSX.Element => {
   return (
     <View style={styles.imageContainer}>
       <ReactNativeZoomableView
@@ -38,8 +21,7 @@ const ChapterContentDisplay: React.FC = ({ image }: any): JSX.Element => {
         initialZoom={1}
       >
         <Image
-          // source={{ uri: `${IMAGE_URL}/${itemData.item[1]}` }}
-          source={{ uri: imageUrl }}
+          source={{ uri: image }}
           style={[
             styles.image,
             {
@@ -51,7 +33,8 @@ const ChapterContentDisplay: React.FC = ({ image }: any): JSX.Element => {
     </View>
   );
 };
-export default ChapterContentDisplay;
+
+export default memo(ChapterContentDisplay);
 
 const styles = StyleSheet.create({
   main: {
@@ -66,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 3,
   },
-
   image: {
     borderWidth: StyleSheet.hairlineWidth,
     width: width,

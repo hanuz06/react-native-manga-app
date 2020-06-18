@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { memo } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,40 +6,16 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import {
-  Avatar,
-  Button,
-  Card,
-  Title,
-  Paragraph,
-  Divider,
-  Surface,
-  TouchableRipple,
-} from "react-native-paper";
-import { useIsFocused } from "@react-navigation/native";
-
+import { Card, Title, Surface } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { IBookDetails } from "../types";
+interface IProps {
+  chapters: string[];
+  getChapterContent: (chapterId: string) => void;
+  navigation: any;
+}
 
-type BookChapters = Pick<IBookDetails, "chapters">;
-
-const BookChapters = (props: any): JSX.Element => {
-  const isFocused = useIsFocused();
-
-  // useEffect(() => {
-  //   props.navigation.setOptions({
-  //     title: "chapters",
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   isFocused &&
-  //     props.navigation.setOptions({
-  //       title: "chapters",
-  //     });
-  // }, [isFocused]);
-
+const BookChapters = (props: IProps): JSX.Element => {
   return (
     <Surface style={styles.container}>
       <FlatList

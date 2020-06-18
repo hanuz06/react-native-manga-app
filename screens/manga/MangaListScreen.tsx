@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useCallback,
-  useState,
-  useLayoutEffect,
-} from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import {
   StyleSheet,
   FlatList,
@@ -16,13 +11,10 @@ import {
   YellowBox,
 } from "react-native";
 import { ActivityIndicator, useTheme } from "react-native-paper";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
-import BookItem from "../../components/BookItem";
-
+import BookItemContainer from "../../components/BookItemContainer";
 import moment from "moment";
 
 const MangaListScreen: React.FC = (props: any): JSX.Element => {
@@ -40,8 +32,6 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
 
   const dispatch = useDispatch();
   const theme = useTheme();
-
-  const { width, height } = Dimensions.get("screen");
 
   useEffect(() => {
     const filtered = allMangaBooks.filter((book: IBook) =>
@@ -69,9 +59,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
     try {
       await dispatch(mangaActions.fetchMangaList());
       YellowBox.ignoreWarnings(["Setting a timer"]);
-      // console.log("LOADBOOKS SUCCESS IN mangalist ");
     } catch (err) {
-      // console.log("OOPS ERROR ", err.message);
       setError(err.message);
     }
     setIsRefreshing(false);
@@ -129,7 +117,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       numColumns={2}
       keyExtractor={(item: IBook): string => item.id}
       renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
-        <BookItem
+        <BookItemContainer
           bookId={itemData.item.id}
           title={itemData.item.title}
           image={itemData.item.image}

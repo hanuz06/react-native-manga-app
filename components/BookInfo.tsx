@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useCallback } from "react";
+import React, { memo } from "react";
 import {
   StyleSheet,
   View,
@@ -6,23 +6,11 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-
-import { Surface, Title, Divider, Text, useTheme } from "react-native-paper";
-import color from "color";
-import * as Linking from "expo-linking";
-
+import { Surface, Title, Divider, Text } from "react-native-paper";
 import moment from "moment";
-
-import Constants from "expo-constants";
-
-import { IBookDetails } from "../types";
-
-import { IMAGE_URL } from "react-native-dotenv";
-
-import useFetchImage from "../utils/hooks/useFetchImage";
+import { IBookInfo } from "../types";
 
 const BookInfo = ({
-  id,
   author,
   image,
   description,
@@ -32,16 +20,10 @@ const BookInfo = ({
   url,
   categories,
   title,
-}: IBookDetails) => {
-  const theme = useTheme();
-
-  const imageUrl: string | undefined = useFetchImage(image);
-
-  const contentColor = color(theme.colors.text).alpha(0.8).rgb().string();
-  const imageBorderColor = color(theme.colors.text).alpha(0.15).rgb().string();
-
-  const handlePress = () => Linking.openURL(url); 
-
+  handlePress,
+  contentColor,
+  imageBorderColor,
+}: IBookInfo): JSX.Element => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView>
@@ -49,7 +31,7 @@ const BookInfo = ({
           <View style={styles.topRow}>
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: imageUrl }}
+                source={{ uri: image }}
                 style={[
                   styles.image,
                   {
@@ -102,18 +84,13 @@ const BookInfo = ({
             <Text style={[styles.content, { color: contentColor }]}>
               {categories && categories.join(", ")}
             </Text>
-            <Title
-              style={{ ...styles.title }}
-              // onPress={handlePress}
-            >
-              Link
-            </Title>
+            <Title style={{ ...styles.title }}>Link</Title>
             <Text
               style={[
                 styles.content,
                 {
                   color: "blue",
-                  textDecorationLine: "underline",                  
+                  textDecorationLine: "underline",
                 },
               ]}
               onPress={handlePress}

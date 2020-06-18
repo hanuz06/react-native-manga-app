@@ -5,20 +5,15 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-
 import { Drawer, Divider } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import { IBookState } from "../../types";
-import { useSelector, useDispatch } from "react-redux";
-import * as mangaActions from "../store/actions/mangaActions";
+import { useSelector } from "react-redux";
 
-const DrawerContent = (props: any): JSX.Element => {
+const DrawerContent: React.FC = (props: any): JSX.Element => {
   const categories = useSelector<IBookState, string[]>(
     (state: any) => state.manga.categories
   );
-
-  const dispatch = useDispatch();
 
   return (
     <DrawerContentScrollView {...props}>

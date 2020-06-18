@@ -12,6 +12,8 @@ web-report/
 .env
 .d.ts
 coverage/**/*
+assets/images/*
+data/*
 
 # macOS
 .DS_Store

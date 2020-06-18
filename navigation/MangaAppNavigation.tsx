@@ -1,29 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import {
-  Platform,
-  SafeAreaView,
-  View,
   Easing,
   TouchableOpacity,
   StatusBar,
-  Button,
   TouchableWithoutFeedback,
   Keyboard,
   Animated,
 } from "react-native";
 import {
-  DrawerItem,
   createDrawerNavigator,
-  DrawerContentScrollView,
   DrawerContentComponentProps,
-  DrawerNavigationProp,
   DrawerContentOptions,
 } from "@react-navigation/drawer";
 import {
   createStackNavigator,
   TransitionPresets,
-  StackNavigationProp,
-  CardStyleInterpolators,
   HeaderStyleInterpolators,
 } from "@react-navigation/stack";
 
@@ -31,30 +22,18 @@ import {
   useTheme,
   Avatar,
   Appbar,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
   Searchbar,
   Switch,
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import color from "color";
-
 import MangaListScreen from "../screens/manga/MangaListScreen";
 import MangaDetailsScreen from "../screens/manga/MangaDetailsScreen";
-import FavoriteMangasScreen from "../screens/manga/FavoriteMangasScreen";
 import MangaByCategoryScreen from "../screens/manga/MangaByCategoryScreen";
 import ChapterContentScreen from "../screens/manga/ChapterContentScreen";
-
-import Header from "../components/Header";
 import DrawerContent from "../components/DrawerContent";
 
 import { useDispatch } from "react-redux";
 import * as mangaActions from "../store/actions/mangaActions";
-
-// const theme = useTheme();
 
 const openCloseConfig: any = {
   animation: "timing",
@@ -64,33 +43,11 @@ const openCloseConfig: any = {
   },
 };
 
-// const defaultNavOptions: any = {
-//   headerStyle: {
-//     backgroundColor: Platform.OS === "android" ? theme.colors.primary : "",
-//   },
-//   headerTitleStyle: {
-//     fontFamily: "roboto-bold",
-//   },
-//   headerBackTitleStyle: {
-//     fontFamily: "roboto-regular",
-//   },
-//   headerTintColor: Platform.OS === "android" ? "white" : theme.colors.primary,
-//   gestureEnabled: true,
-//   gestureDirection: "horizontal",
-//   ...TransitionPresets.SlideFromRightIOS,
-//   // CardStyleInterpolators: CardStyleInterpolators.forHorizontalIOS,
-//   transitionSpec: {
-//     open: openCloseConfig,
-//     close: openCloseConfig,
-//   },
-// };
-
 //DRAWER NAVIGATION
 const DrawerNavigation = createDrawerNavigator();
 
 export const RootNavigator = () => {
   const theme = useTheme();
-
   return (
     <DrawerNavigation.Navigator
       drawerContent={(
@@ -155,12 +112,6 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
             navigation.dangerouslyGetState().index
           ];
           const title = options.title;
-          // const title =
-          // options.headerTitle !== undefined
-          //   ? options.headerTitle
-          //   : options.title !== undefined
-          //   ? options.title
-          //   : scene.route.name;
 
           const switchToggle = () => {
             setIsOn(!isOn);
@@ -178,7 +129,6 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
             toValue: toggleValue ? 160 : 50,
             duration: 300,
             easing: Easing.linear,
-            // useNativeDriver: true,
           });
 
           const clickAnimate = () => {
@@ -248,12 +198,10 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
                   {(name === "MangaList" || name === "MangaByCategory") && (
                     <Animated.View
                       style={{
-                        // transform: [{ translageX: inffterpolateSearchBar }],
                         width: interpolateSearchBar,
                       }}
                     >
                       <Searchbar
-                        // placeholder="Search..."
                         value={searchWord}
                         onChangeText={(word) => {
                           setSearchWord(word),
@@ -278,7 +226,6 @@ export const MangaBooksNavigator: React.FC = (): JSX.Element => {
           );
         },
         gestureEnabled: true,
-        gestureDirection: "horizontal",
         ...TransitionPresets.SlideFromRightIOS,
         transitionSpec: {
           open: openCloseConfig,

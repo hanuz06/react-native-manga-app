@@ -1,26 +1,16 @@
-import React, {
-  useEffect,
-  useCallback,
-  useState,
-  useLayoutEffect,
-} from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import {
   StyleSheet,
   FlatList,
   ListRenderItemInfo,
   View,
   Alert,
-  Text,
 } from "react-native";
 import { ActivityIndicator, useTheme } from "react-native-paper";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import { IBook, IBookState } from "../../types";
-import BookItem from "../../components/BookItem";
-
+import BookItem from "../../components/BookItemContainer";
 import * as mangaActions from "../../store/actions/mangaActions";
-
 import moment from "moment";
 
 const MangaByCategoryScreen: React.FC = (props: any): JSX.Element => {

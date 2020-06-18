@@ -1,43 +1,16 @@
-import React, { useEffect, useState, useCallback } from "react";
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  ListRenderItemInfo,
-  TouchableOpacity,
-  Dimensions,
-  YellowBox,
-} from "react-native";
-import {
-  Appbar,
-  Avatar,
-  Button,
-  Card,
-  Title,
-  Headline,
-  Subheading,
-  Text,
-  Paragraph,
-  TouchableRipple,
-} from "react-native-paper";
-
+import React, { memo } from "react";
+import { StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { Card, Subheading, Text } from "react-native-paper";
 import { IBookItems } from "../types";
-import { IMAGE_URL } from "react-native-dotenv";
+const { width } = Dimensions.get("screen");
 
-import useFetchImage from "../utils/hooks/useFetchImage";
-
-const { width, height } = Dimensions.get("screen");
-
-const BookItem = ({
+const BookItem: React.FC<IBookItems> = ({
   bookId,
   title,
   last_chapter_date,
   image,
   fetchBookDetails,
-}: IBookItems) => {
-  const imageUrl: string | undefined = useFetchImage(image);
-  YellowBox.ignoreWarnings(["source.uri"]);
-
+}): JSX.Element => {
   return (
     <TouchableOpacity
       onPress={() => fetchBookDetails(bookId)}
@@ -50,7 +23,7 @@ const BookItem = ({
         />
         <Card.Cover
           source={{
-            uri: imageUrl,
+            uri: image,
           }}
         />
         <Card.Content>
@@ -62,18 +35,14 @@ const BookItem = ({
   );
 };
 
-export default BookItem;
+export default memo(BookItem);
 
 const styles = StyleSheet.create({
   main: {
     width: width / 2 - 1,
     paddingBottom: 2,
     margin: StyleSheet.hairlineWidth,
-    // backgroundColor: "rgba(255,182,193,1)",
     backgroundColor: "black",
     maxWidth: 450,
-  },
-  content: {
-    // marginBottom: 5,
   },
 });
