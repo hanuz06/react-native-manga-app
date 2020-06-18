@@ -49,8 +49,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export default function App() {
-  const [fontLoaded, setFontLoaded] = useState<boolean>(false);
-
   return (
     <SafeAreaProvider>
       <ReduxProvider store={store}>

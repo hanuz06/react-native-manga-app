@@ -1,7 +1,6 @@
 # react-native-manga-app
 
-This is a manga reader app that allows users to see 
-a general list of manga books, a list by categories, book details, search books, chapter content.
+This is a manga reader app that allows users to see a general list of manga books, a list by categories, book details, search books, chapter content.
 
 !["React Native manga app in action"](/assets/gif/react-manga.gif)
 

@@ -14,7 +14,7 @@ import { ActivityIndicator, useTheme } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import * as mangaActions from "../../store/actions/mangaActions";
 import { IBook, IBookState } from "../../types";
-import BookItemContainer from "../../components/BookItemContainer";
+import BookItem from "../../components/BookItemContainer";
 import moment from "moment";
 
 const MangaListScreen: React.FC = (props: any): JSX.Element => {
@@ -117,7 +117,7 @@ const MangaListScreen: React.FC = (props: any): JSX.Element => {
       numColumns={2}
       keyExtractor={(item: IBook): string => item.id}
       renderItem={(itemData: ListRenderItemInfo<IBook>): JSX.Element => (
-        <BookItemContainer
+        <BookItem
           bookId={itemData.item.id}
           title={itemData.item.title}
           image={itemData.item.image}
