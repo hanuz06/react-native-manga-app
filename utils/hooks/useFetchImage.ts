@@ -6,7 +6,9 @@ const useFetchImage = (image: string) => {
 
   const getImageUrl = useCallback(
     async (image) => {
-      const imageRef: any = firebase.storage().ref(`images/${image}`);
+      const imageRef: firebase.storage.Reference = firebase
+        .storage()
+        .ref(`images/${image}`);
       const foundImage: string = await imageRef.getDownloadURL();
       setMangaImage(foundImage);
     },

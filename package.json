@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest",
+    "test": "jest --silent",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
   },
   "jest": {
